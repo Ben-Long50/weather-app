@@ -3,3 +3,32 @@ body {
   height: 100%;
   width: 100%;
 }
+
+#weather-app-container {
+  --main-color: rgb(142, 180, 255);
+  --secondary-color: rgb(86, 151, 255);
+  box-sizing: border-box;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(4 1fr);
+  grid-template-rows: repeat(2 1fr);
+  gap: 20px;
+  padding: 20px;
+  background-color: var(--secondary-color);
+}
+
+#current-data-container {
+  grid-row: 1 / 2;
+  grid-column: 1 / 5;
+  background-color: var(--main-color);
+  border: solid black 1px;
+  border-radius: 10px;
+}
+
+.future-data-container {
+  grid-row: 2 / 3;
+  background-color: var(--main-color);
+  border: solid black 1px;
+  border-radius: 10px;
+}
