@@ -11,7 +11,7 @@ body {
   height: 100%;
   width: 100%;
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  /* grid-template-columns: auto; */
   grid-template-rows: 32px auto auto;
   gap: 20px;
   padding: 20px;
@@ -20,7 +20,6 @@ body {
 
 #nav-container {
   grid-row: 1 / 2;
-  grid-column: 1 / 5;
   display: flex;
   justify-content: space-between;
 }
@@ -28,7 +27,6 @@ body {
 #search-container {
   --border-property: solid black 1.5px;
   display: flex;
-  /* gap: 20px; */
 }
 
 #user-input {
@@ -55,7 +53,6 @@ body {
 #current-data-container {
   box-sizing: border-box;
   grid-row: 2 / 3;
-  grid-column: 1 / 5;
   display: grid;
   grid-template-columns: 1fr 2px 1fr;
   grid-template-rows: 1fr 5fr;
@@ -122,8 +119,21 @@ body {
   padding: 30px;
 }
 
-.future-data-container {
+#forecast-container {
   grid-row: 3 / 4;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  gap: 20px;
+}
+
+.forecast-card {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 15px;
   background-color: var(--main-color);
   border: solid black 1px;
   border-radius: 10px;

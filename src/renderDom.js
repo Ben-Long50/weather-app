@@ -1,4 +1,4 @@
-import getLocationData from './fetchData';
+import getLocationData, { getForecastData } from './fetchData';
 import { getUnitsValue } from './toggleUnits';
 
 const currentContainer = document.querySelector('#current-data-container');
@@ -64,7 +64,7 @@ function setPrecip(locationData) {
   }
 }
 
-export default async function renderElements(location) {
+export default async function renderCurrentWeather(location) {
   try {
     const locationData = await getLocationData(location);
     setConditionImage(locationData);
@@ -76,5 +76,39 @@ export default async function renderElements(location) {
     setPrecip(locationData);
   } catch (error) {
     console.error(error);
+  }
+}
+
+const forecastContainer = document.querySelector('#forecast-container');
+
+function createForecastCard(forecast) {
+  const forecastCard = document.createElement('div');
+  forecastCard.classList.add('forecast-card');
+  forecastContainer.appendChild(forecastCard);
+  const highTempData = document.createElement('h2');
+  highTempData.textContent = forecast.maxTempF;
+  const lowTempData = document.createElement('h2');
+  lowTempData.textContent = forecast.minTempF;
+  const icon = document.createElement('img');
+  icon.src = forecast.icon;
+  const condition = document.createElement('h3');
+  condition.textContent = forecast.condition;
+  forecastCard.appendChild(highTempData);
+  forecastCard.appendChild(icon);
+  forecastCard.appendChild(condition);
+  forecastCard.appendChild(lowTempData);
+}
+
+export function removeForecastCards() {
+  while (forecastContainer.firstChild) {
+    forecastContainer.firstChild.remove();
+  }
+}
+
+export async function renderForecast(location, days) {
+  for (let i = 1; i < days; i++) {
+    console.log('done');
+    const forecast = await getForecastData(location, days, i);
+    createForecastCard(forecast);
   }
 }
