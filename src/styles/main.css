@@ -8,11 +8,11 @@ body {
   --main-color: rgb(142, 180, 255);
   --secondary-color: rgb(86, 151, 255);
   box-sizing: border-box;
-  /* height: 100%;
-  width: 100%; */
+  height: 100%;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4 1fr);
-  grid-template-rows: repeat(3 auto);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 32px auto auto;
   gap: 20px;
   padding: 20px;
   background-color: var(--secondary-color);
@@ -26,17 +26,100 @@ body {
 }
 
 #search-container {
+  --border-property: solid black 1.5px;
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
+}
+
+#user-input {
+  border-radius: 16px 0 0 16px;
+  padding-left: 10px;
+  font-size: 16px;
+  border-top: var(--border-property);
+  border-bottom: var(--border-property);
+  border-left: var(--border-property);
+  border-right: none;
+}
+
+#search-button {
+  font-size: 16px;
+  border-radius: 0 16px 16px 0;
+  background-color: var(--main-color);
+  border-top: var(--border-property);
+  border-bottom: var(--border-property);
+  border-right: var(--border-property);
+  border-left: none;
+  outline: none;
 }
 
 #current-data-container {
+  box-sizing: border-box;
   grid-row: 2 / 3;
   grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  grid-template-rows: 1fr 5fr;
   background-color: var(--main-color);
   border: solid black 1px;
   border-radius: 10px;
   padding: 10px;
+}
+
+#name-info-container {
+  grid-row: 1 / 3;
+  grid-column: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+#location-name {
+  font-size: 50px;
+}
+
+#condition-container {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 2;
+  padding-right: 30px;
+}
+
+.condition-image {
+  grid-row: 1 / 3;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+#current-temp {
+  font-size: 100px;
+  align-self: self-end;
+  padding-bottom: 30px;
+}
+
+.condition-desc {
+  font-size: 30px;
+  grid-column: 2 / 3;
+  align-self: self-start;
+  padding-top: 10px;
+}
+
+#dividing-line {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  background-color: black;
+}
+
+#info-container {
+  grid-row: 2 / 3;
+  grid-column: 3 / 4;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 30px;
 }
 
 .future-data-container {

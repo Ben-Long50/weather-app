@@ -34,33 +34,33 @@ function setUpdatedTime(locationData) {
     second: 'numeric',
   };
   const formattedDate = updatedDate.toLocaleDateString('en-US', options);
-  updatedTime.textContent = `Last Updated: ${formattedDate}`;
+  updatedTime.textContent = `${formattedDate}`;
 }
 
 function setCurrentTemp(locationData) {
   const units = getUnitsValue();
   if (units === 'imperial') {
-    currentTemp.textContent = locationData.tempF;
+    currentTemp.textContent = `${locationData.tempF} \u00B0F`;
   } else if (units === 'metric') {
-    currentTemp.textContent = locationData.tempC;
+    currentTemp.textContent = `${locationData.tempC} \u00B0C`;
   }
 }
 
 function setWindSpeed(locationData) {
   const units = getUnitsValue();
   if (units === 'imperial') {
-    windSpeed.textContent = locationData.windMph;
+    windSpeed.textContent = `${locationData.windMph} mph`;
   } else if (units === 'metric') {
-    windSpeed.textContent = locationData.windKph;
+    windSpeed.textContent = `${locationData.windKph} kph`;
   }
 }
 
 function setPrecip(locationData) {
   const units = getUnitsValue();
   if (units === 'imperial') {
-    precip.textContent = locationData.precipIn;
+    precip.textContent = `${locationData.precipIn} in`;
   } else if (units === 'metric') {
-    precip.textContent = locationData.precipMm;
+    precip.textContent = `${locationData.precipMm} mm`;
   }
 }
 

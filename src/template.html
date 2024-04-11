@@ -15,13 +15,20 @@
         <button id="unit-toggle">Imperial</button>
       </div>
       <div id="current-data-container">
-        <img class="condition-image" src="" alt="Weather Image" />
-        <h2 class="condition-desc"></h2>
-        <h1 id="location-name"></h1>
-        <h2 id="updated-time"></h2>
-        <h2 id="current-temp"></h2>
-        <h2 id="wind-speed"></h2>
-        <h2 id="precip"></h2>
+        <div id="name-info-container">
+          <h1 id="location-name"></h1>
+          <h2 id="updated-time"></h2>
+        </div>
+        <div id="condition-container">
+          <img class="condition-image" src="" alt="Weather Image" />
+          <h2 id="current-temp"></h2>
+          <h2 class="condition-desc"></h2>
+        </div>
+        <div id="dividing-line"></div>
+        <div id="info-container">
+          <h2 id="wind-speed"></h2>
+          <h2 id="precip"></h2>
+        </div>
       </div>
       <div class="future-data-container"></div>
       <div class="future-data-container"></div>
