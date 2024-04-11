@@ -115,25 +115,25 @@ function setUpdatedTime(locationData) {
 function setCurrentTemp(locationData) {
   var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   if (units === 'imperial') {
-    currentTemp.textContent = locationData.tempF;
+    currentTemp.textContent = "".concat(locationData.tempF, " F");
   } else if (units === 'metric') {
-    currentTemp.textContent = locationData.tempC;
+    currentTemp.textContent = "".concat(locationData.tempC, " C");
   }
 }
 function setWindSpeed(locationData) {
   var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   if (units === 'imperial') {
-    windSpeed.textContent = locationData.windMph;
+    windSpeed.textContent = "".concat(locationData.windMph, " mph");
   } else if (units === 'metric') {
-    windSpeed.textContent = locationData.windKph;
+    windSpeed.textContent = "".concat(locationData.windKph, " kph");
   }
 }
 function setPrecip(locationData) {
   var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   if (units === 'imperial') {
-    precip.textContent = locationData.precipIn;
+    precip.textContent = "".concat(locationData.precipIn, " in");
   } else if (units === 'metric') {
-    precip.textContent = locationData.precipMm;
+    precip.textContent = "".concat(locationData.precipMm, " mm");
   }
 }
 function renderElements(_x) {
@@ -199,6 +199,26 @@ function getUnitsValue() {
 
 /***/ }),
 
+/***/ "./src/userInput.js":
+/*!**************************!*\
+  !*** ./src/userInput.js ***!
+  \**************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ processInput)
+/* harmony export */ });
+/* harmony import */ var _renderDom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderDom */ "./src/renderDom.js");
+
+var userInput = document.querySelector('#user-input');
+function processInput() {
+  var locationInput = userInput.value;
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__["default"])(locationInput);
+}
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/styles/main.css":
 /*!*******************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/styles/main.css ***!
@@ -228,11 +248,11 @@ body {
   --main-color: rgb(142, 180, 255);
   --secondary-color: rgb(86, 151, 255);
   box-sizing: border-box;
-  /* height: 100%;
-  width: 100%; */
+  height: 100%;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(4 1fr);
-  grid-template-rows: repeat(3 auto);
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 32px auto auto;
   gap: 20px;
   padding: 20px;
   background-color: var(--secondary-color);
@@ -246,16 +266,92 @@ body {
 }
 
 #search-container {
+  --border-property: solid black 1.5px;
   display: flex;
-  gap: 20px;
+  /* gap: 20px; */
+}
+
+#user-input {
+  border-radius: 16px 0 0 16px;
+  padding-left: 10px;
+  font-size: 16px;
+  border-top: var(--border-property);
+  border-bottom: var(--border-property);
+  border-left: var(--border-property);
+  border-right: none;
+}
+
+#search-button {
+  font-size: 16px;
+  border-radius: 0 16px 16px 0;
+  background-color: var(--main-color);
+  border-top: var(--border-property);
+  border-bottom: var(--border-property);
+  border-right: var(--border-property);
+  border-left: none;
+  outline: none;
 }
 
 #current-data-container {
   grid-row: 2 / 3;
   grid-column: 1 / 5;
+  display: grid;
+  grid-template-columns: 1fr 2px 1fr;
+  grid-template-rows: 1fr 5fr;
   background-color: var(--main-color);
   border: solid black 1px;
   border-radius: 10px;
+  padding: 10px;
+}
+
+#name-info-container {
+  grid-row: 1 / 3;
+  grid-column: 1 / 3;
+}
+
+#condition-container {
+  grid-row: 2 / 3;
+  grid-column: 1 / 2;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: 2;
+  padding-right: 30px;
+}
+
+.condition-image {
+  grid-row: 1 / 3;
+  width: auto;
+  height: 100%;
+  object-fit: cover;
+}
+
+#current-temp {
+  font-size: 100px;
+  align-self: self-end;
+  padding-bottom: 30px;
+}
+
+.condition-desc {
+  font-size: 30px;
+  grid-column: 2 / 3;
+  align-self: self-start;
+  padding-top: 10px;
+}
+
+#dividing-line {
+  grid-row: 2 / 3;
+  grid-column: 2 / 3;
+  background-color: black;
+}
+
+#info-container {
+  grid-row: 2 / 3;
+  grid-column: 3 / 4;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 20px;
+  padding: 30px;
 }
 
 .future-data-container {
@@ -264,7 +360,7 @@ body {
   border: solid black 1px;
   border-radius: 10px;
 }
-`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,gCAAgC;EAChC,oCAAoC;EACpC,sBAAsB;EACtB;gBACc;EACd,aAAa;EACb,oCAAoC;EACpC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,wCAAwC;AAC1C;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,aAAa;EACb,SAAS;AACX;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;AACrB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  --main-color: rgb(142, 180, 255);\n  --secondary-color: rgb(86, 151, 255);\n  box-sizing: border-box;\n  /* height: 100%;\n  width: 100%; */\n  display: grid;\n  grid-template-columns: repeat(4 1fr);\n  grid-template-rows: repeat(3 auto);\n  gap: 20px;\n  padding: 20px;\n  background-color: var(--secondary-color);\n}\n\n#nav-container {\n  grid-row: 1 / 2;\n  grid-column: 1 / 5;\n  display: flex;\n  justify-content: space-between;\n}\n\n#search-container {\n  display: flex;\n  gap: 20px;\n}\n\n#current-data-container {\n  grid-row: 2 / 3;\n  grid-column: 1 / 5;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n}\n\n.future-data-container {\n  grid-row: 3 / 4;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,gCAAgC;EAChC,oCAAoC;EACpC,sBAAsB;EACtB,YAAY;EACZ,WAAW;EACX,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,wCAAwC;AAC1C;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,oCAAoC;EACpC,aAAa;EACb,eAAe;AACjB;;AAEA;EACE,4BAA4B;EAC5B,kBAAkB;EAClB,eAAe;EACf,kCAAkC;EAClC,qCAAqC;EACrC,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,4BAA4B;EAC5B,mCAAmC;EACnC,kCAAkC;EAClC,qCAAqC;EACrC,oCAAoC;EACpC,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,kCAAkC;EAClC,2BAA2B;EAC3B,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;EACnB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,gBAAgB;EAChB,oBAAoB;EACpB,oBAAoB;AACtB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,sBAAsB;EACtB,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;AACf;;AAEA;EACE,eAAe;EACf,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;AACrB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  --main-color: rgb(142, 180, 255);\n  --secondary-color: rgb(86, 151, 255);\n  box-sizing: border-box;\n  height: 100%;\n  width: 100%;\n  display: grid;\n  grid-template-columns: repeat(4, 1fr);\n  grid-template-rows: 32px auto auto;\n  gap: 20px;\n  padding: 20px;\n  background-color: var(--secondary-color);\n}\n\n#nav-container {\n  grid-row: 1 / 2;\n  grid-column: 1 / 5;\n  display: flex;\n  justify-content: space-between;\n}\n\n#search-container {\n  --border-property: solid black 1.5px;\n  display: flex;\n  /* gap: 20px; */\n}\n\n#user-input {\n  border-radius: 16px 0 0 16px;\n  padding-left: 10px;\n  font-size: 16px;\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-left: var(--border-property);\n  border-right: none;\n}\n\n#search-button {\n  font-size: 16px;\n  border-radius: 0 16px 16px 0;\n  background-color: var(--main-color);\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-right: var(--border-property);\n  border-left: none;\n  outline: none;\n}\n\n#current-data-container {\n  grid-row: 2 / 3;\n  grid-column: 1 / 5;\n  display: grid;\n  grid-template-columns: 1fr 2px 1fr;\n  grid-template-rows: 1fr 5fr;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n  padding: 10px;\n}\n\n#name-info-container {\n  grid-row: 1 / 3;\n  grid-column: 1 / 3;\n}\n\n#condition-container {\n  grid-row: 2 / 3;\n  grid-column: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: 2;\n  padding-right: 30px;\n}\n\n.condition-image {\n  grid-row: 1 / 3;\n  width: auto;\n  height: 100%;\n  object-fit: cover;\n}\n\n#current-temp {\n  font-size: 100px;\n  align-self: self-end;\n  padding-bottom: 30px;\n}\n\n.condition-desc {\n  font-size: 30px;\n  grid-column: 2 / 3;\n  align-self: self-start;\n  padding-top: 10px;\n}\n\n#dividing-line {\n  grid-row: 2 / 3;\n  grid-column: 2 / 3;\n  background-color: black;\n}\n\n#info-container {\n  grid-row: 2 / 3;\n  grid-column: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 20px;\n  padding: 30px;\n}\n\n.future-data-container {\n  grid-row: 3 / 4;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1003,11 +1099,20 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/main.css */ "./src/styles/main.css");
 /* harmony import */ var _styles_reset_css_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/reset-css.css */ "./src/styles/reset-css.css");
 /* harmony import */ var _renderDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderDom */ "./src/renderDom.js");
-//WeatherAPI Key: f895889501ed4aaf898183007240904
+/* harmony import */ var _userInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./userInput */ "./src/userInput.js");
+// WeatherAPI Key: f895889501ed4aaf898183007240904
+
 
 
 
 (0,_renderDom__WEBPACK_IMPORTED_MODULE_2__["default"])('huntington beach');
+var searchButton = document.querySelector('#search-button');
+searchButton.addEventListener('click', _userInput__WEBPACK_IMPORTED_MODULE_3__["default"]);
+searchButton.addEventListener('keydown', function (event) {
+  if (event.key === 'Enter' || event.keyCode === 13) {
+    (0,_userInput__WEBPACK_IMPORTED_MODULE_3__["default"])();
+  }
+});
 })();
 
 /******/ })()
