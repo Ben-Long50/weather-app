@@ -5,6 +5,7 @@ export default async function getLocationData(location) {
       { mode: 'cors' },
     );
     const locationData = await response.json();
+    console.log(locationData);
     return {
       name: locationData.location.name,
       icon: locationData.current.condition.icon,
@@ -20,6 +21,8 @@ export default async function getLocationData(location) {
       windKph: locationData.current.gust_kph,
       precipIn: locationData.current.precip_in,
       precipMm: locationData.current.precip_mm,
+      sunrise: locationData.forecast.forecastday[0].astro.sunrise,
+      sunset: locationData.forecast.forecastday[0].astro.sunset,
     };
   } catch (error) {
     console.error(error);
@@ -33,7 +36,9 @@ export async function getForecastData(location, days, index) {
       { mode: 'cors' },
     );
     const locationData = await response.json();
+    console.log(locationData);
     return {
+      date: locationData.forecast.forecastday[index].date,
       condition: locationData.forecast.forecastday[index].day.condition.text,
       icon: locationData.forecast.forecastday[index].day.condition.icon,
       maxTempF: locationData.forecast.forecastday[index].day.maxtemp_f,

@@ -1,14 +1,30 @@
 import getLocationData, { getForecastData } from './fetchData';
-import { getUnitsValue } from './toggleUnits';
+import { getUnitsValue, toggleTheme } from './toggleUnits';
 
 const currentContainer = document.querySelector('#current-data-container');
+const infoContainer = document.querySelector('#info-container');
 const conditionImage = currentContainer.querySelector('.condition-image');
 const conditionDesc = currentContainer.querySelector('.condition-desc');
 const locationName = document.querySelector('#location-name');
 const updatedTime = document.querySelector('#updated-time');
 const currentTemp = document.querySelector('#current-temp');
-const windSpeed = document.querySelector('#wind-speed');
-const precip = document.querySelector('#precip');
+
+function renderInfoCard(id, header) {
+  const infoCard = document.createElement('div');
+  infoCard.classList.add('info-card');
+  const infoIcon = document.createElement('i');
+  infoIcon.classList.add('info-icon');
+  const infoHeader = document.createElement('h3');
+  infoHeader.classList.add('info-header');
+  infoHeader.textContent = header;
+  const infoValue = document.createElement('h2');
+  infoValue.id = id;
+  infoValue.classList.add('info-value');
+  infoCard.appendChild(infoIcon);
+  infoCard.appendChild(infoHeader);
+  infoCard.appendChild(infoValue);
+  infoContainer.appendChild(infoCard);
+}
 
 function setConditionImage(locationData) {
   conditionImage.src = locationData.icon;
@@ -46,7 +62,20 @@ function setCurrentTemp(locationData) {
   }
 }
 
+function setHighTemp(locationData) {
+  renderInfoCard('high-temp', 'High:');
+  const highTemp = document.querySelector('#high-temp');
+  const units = getUnitsValue();
+  if (units === 'imperial') {
+    highTemp.textContent = `${locationData.maxTempF} \u00B0F`;
+  } else if (units === 'metric') {
+    highTemp.textContent = `${locationData.maxTempC} \u00B0C`;
+  }
+}
+
 function setWindSpeed(locationData) {
+  renderInfoCard('wind-speed', 'Wind Speed:');
+  const windSpeed = document.querySelector('#wind-speed');
   const units = getUnitsValue();
   if (units === 'imperial') {
     windSpeed.textContent = `${locationData.windMph} mph`;
@@ -55,13 +84,38 @@ function setWindSpeed(locationData) {
   }
 }
 
+function setSunrise(locationData) {
+  renderInfoCard('sunrise', 'Sunrise:');
+  const sunrise = document.querySelector('#sunrise');
+  sunrise.textContent = locationData.sunrise;
+}
+
+function setLowTemp(locationData) {
+  renderInfoCard('low-temp', 'Low:');
+  const lowTemp = document.querySelector('#low-temp');
+  const units = getUnitsValue();
+  if (units === 'imperial') {
+    lowTemp.textContent = `${locationData.minTempF} \u00B0F`;
+  } else if (units === 'metric') {
+    lowTemp.textContent = `${locationData.minTempC} \u00B0C`;
+  }
+}
+
 function setPrecip(locationData) {
+  renderInfoCard('precip', 'Precipitaion:');
+  const precip = document.querySelector('#precip');
   const units = getUnitsValue();
   if (units === 'imperial') {
     precip.textContent = `${locationData.precipIn} in`;
   } else if (units === 'metric') {
     precip.textContent = `${locationData.precipMm} mm`;
   }
+}
+
+function setSunset(locationData) {
+  renderInfoCard('sunset', 'Sunset:');
+  const sunset = document.querySelector('#sunset');
+  sunset.textContent = locationData.sunset;
 }
 
 export default async function renderCurrentWeather(location) {
@@ -72,8 +126,17 @@ export default async function renderCurrentWeather(location) {
     setLocationName(locationData);
     setUpdatedTime(locationData);
     setCurrentTemp(locationData);
+    setHighTemp(locationData);
     setWindSpeed(locationData);
+    setSunrise(locationData);
+    setLowTemp(locationData);
     setPrecip(locationData);
+    setSunset(locationData);
+    toggleTheme(
+      locationData.updated,
+      locationData.sunrise,
+      locationData.sunset,
+    );
   } catch (error) {
     console.error(error);
   }
@@ -82,21 +145,48 @@ export default async function renderCurrentWeather(location) {
 const forecastContainer = document.querySelector('#forecast-container');
 
 function createForecastCard(forecast) {
+  const units = getUnitsValue();
   const forecastCard = document.createElement('div');
   forecastCard.classList.add('forecast-card');
   forecastContainer.appendChild(forecastCard);
+  const day = document.createElement('h3');
+  day.classList.add('forecast-day');
+  const forecastDate = forecast.date;
+  const weekday = new Date(forecastDate).toLocaleDateString('en-US', {
+    weekday: 'long',
+  });
+  console.log(weekday);
+  day.textContent = weekday;
   const highTempData = document.createElement('h2');
-  highTempData.textContent = forecast.maxTempF;
+  highTempData.classList.add('forecast-data');
+  if (units === 'imperial') {
+    highTempData.textContent = `${forecast.maxTempF} \u00B0F`;
+  } else if (units === 'metric') {
+    highTempData.textContent = `${forecast.maxTempC} \u00B0C`;
+  }
   const lowTempData = document.createElement('h2');
-  lowTempData.textContent = forecast.minTempF;
+  lowTempData.classList.add('forecast-data');
+  if (units === 'imperial') {
+    lowTempData.textContent = `${forecast.minTempF} \u00B0F`;
+  } else if (units === 'metric') {
+    lowTempData.textContent = `${forecast.minTempC} \u00B0C`;
+  }
   const icon = document.createElement('img');
   icon.src = forecast.icon;
   const condition = document.createElement('h3');
+  condition.classList.add('forecast-condition');
   condition.textContent = forecast.condition;
+  forecastCard.appendChild(day);
   forecastCard.appendChild(highTempData);
   forecastCard.appendChild(icon);
   forecastCard.appendChild(condition);
   forecastCard.appendChild(lowTempData);
+}
+
+export function removeInfoCards() {
+  while (infoContainer.firstChild) {
+    infoContainer.firstChild.remove();
+  }
 }
 
 export function removeForecastCards() {

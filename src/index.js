@@ -4,8 +4,8 @@ import './styles/reset-css.css';
 import renderCurrentWeather, { renderForecast } from './renderDom';
 import processInput from './userInput';
 
-renderCurrentWeather('huntington beach');
-renderForecast('huntington beach', 6);
+renderCurrentWeather('london');
+renderForecast('london', 7);
 
 const searchButton = document.querySelector('#search-button');
 searchButton.addEventListener('click', processInput);

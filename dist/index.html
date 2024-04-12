@@ -3,6 +3,9 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Open+Sans&display=swap" rel="stylesheet">
     <title>Weather App></title>
   <script defer="defer" src="bundle.js"></script></head>
   <body>
@@ -14,21 +17,18 @@
         </div>
         <button id="unit-toggle">Imperial</button>
       </div>
+      <div id="name-info-container">
+        <h1 id="location-name"></h1>
+        <h2 id="updated-time"></h2>
+      </div>
       <div id="current-data-container">
-        <div id="name-info-container">
-          <h1 id="location-name"></h1>
-          <h2 id="updated-time"></h2>
-        </div>
         <div id="condition-container">
           <img class="condition-image" src="" alt="Weather Image">
           <h2 id="current-temp"></h2>
           <h2 class="condition-desc"></h2>
         </div>
         <div id="dividing-line"></div>
-        <div id="info-container">
-          <h2 id="wind-speed"></h2>
-          <h2 id="precip"></h2>
-        </div>
+        <div id="info-container"></div>
       </div>
       <div id="forecast-container"></div>
     </div>
