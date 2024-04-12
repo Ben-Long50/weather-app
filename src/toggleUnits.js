@@ -14,6 +14,7 @@ export function getUnitsValue() {
 
 export function toggleTheme(updatedTime, sunrise, sunset) {
   const weatherAppContainer = document.querySelector('#weather-app-container');
+  const dividingLine = document.querySelector('#dividing-line');
   const [date, time] = updatedTime.split(' ');
   const [hours, minutes] = time.split(':').map(Number);
   const currentTime = hours * 60 + minutes;
@@ -27,9 +28,11 @@ export function toggleTheme(updatedTime, sunrise, sunset) {
   if (currentTime > sunriseMinutes && currentTime < sunsetMinutes) {
     weatherAppContainer.classList.remove('night-theme');
     weatherAppContainer.classList.add('day-theme');
+    dividingLine.style.backgroundColor = 'black';
   } else {
     weatherAppContainer.classList.remove('day-theme');
     weatherAppContainer.classList.add('night-theme');
+    dividingLine.style.backgroundColor = 'white';
   }
 }
 
