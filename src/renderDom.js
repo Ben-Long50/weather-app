@@ -119,6 +119,7 @@ function setSunset(locationData) {
 }
 
 export default async function renderCurrentWeather(location) {
+  removeInfoCards();
   try {
     const locationData = await getLocationData(location);
     setConditionImage(locationData);
@@ -132,11 +133,7 @@ export default async function renderCurrentWeather(location) {
     setLowTemp(locationData);
     setPrecip(locationData);
     setSunset(locationData);
-    toggleTheme(
-      locationData.updated,
-      locationData.sunrise,
-      locationData.sunset,
-    );
+    toggleTheme(locationData.day);
   } catch (error) {
     console.error(error);
   }
@@ -155,7 +152,6 @@ function createForecastCard(forecast) {
   const weekday = new Date(forecastDate).toLocaleDateString('en-US', {
     weekday: 'long',
   });
-  console.log(weekday);
   day.textContent = weekday;
   const highTempData = document.createElement('h2');
   highTempData.classList.add('forecast-data');
@@ -196,8 +192,8 @@ export function removeForecastCards() {
 }
 
 export async function renderForecast(location, days) {
+  removeForecastCards();
   for (let i = 1; i < days; i++) {
-    console.log('done');
     const forecast = await getForecastData(location, days, i);
     createForecastCard(forecast);
   }

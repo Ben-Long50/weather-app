@@ -1,3 +1,5 @@
+// import conditionList from './weatherApiConditionList.json';
+
 export default async function getLocationData(location) {
   try {
     const response = await fetch(
@@ -11,12 +13,13 @@ export default async function getLocationData(location) {
       icon: locationData.current.condition.icon,
       updated: locationData.current.last_updated,
       condition: locationData.current.condition.text,
+      day: locationData.current.is_day,
       tempF: locationData.current.temp_f,
       tempC: locationData.current.temp_c,
       maxTempF: locationData.forecast.forecastday[0].day.maxtemp_f,
       maxTempC: locationData.forecast.forecastday[0].day.maxtemp_c,
       minTempF: locationData.forecast.forecastday[0].day.mintemp_f,
-      minTempc: locationData.forecast.forecastday[0].day.mintemp_c,
+      minTempC: locationData.forecast.forecastday[0].day.mintemp_c,
       windMph: locationData.current.gust_mph,
       windKph: locationData.current.gust_kph,
       precipIn: locationData.current.precip_in,
@@ -36,7 +39,6 @@ export async function getForecastData(location, days, index) {
       { mode: 'cors' },
     );
     const locationData = await response.json();
-    console.log(locationData);
     return {
       date: locationData.forecast.forecastday[index].date,
       condition: locationData.forecast.forecastday[index].day.condition.text,
@@ -50,3 +52,17 @@ export async function getForecastData(location, days, index) {
     console.error(error);
   }
 }
+
+// export async function fetchConditionData() {
+//   try {
+//     const response = await fetch(conditionList);
+//     if (!response.ok) {
+//       throw new Error('Network response was not ok');
+//     }
+//     const data = await response.json();
+//     console.log(data);
+//     return data;
+//   } catch (error) {
+//     console.error('There was a problem with the fetch operation:', error);
+//   }
+// }
