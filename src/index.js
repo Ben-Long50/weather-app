@@ -2,7 +2,7 @@
 import './styles/main.css';
 import './styles/reset-css.css';
 import renderCurrentWeather, { renderForecast } from './renderDom';
-import processInput from './userInput';
+import processInput, { getInputValue } from './userInput';
 import toggleUnits from './toggleUnits';
 // import { fetchConditionData } from './fetchData';
 
@@ -21,6 +21,7 @@ searchButton.addEventListener('keydown', (event) => {
 const unitToggle = document.querySelector('#unit-toggle');
 unitToggle.addEventListener('click', () => {
   toggleUnits();
-  renderCurrentWeather('london');
-  renderForecast('london', 7);
+  const location = getInputValue();
+  renderCurrentWeather(location);
+  renderForecast(location, 7);
 });

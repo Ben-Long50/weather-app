@@ -6,10 +6,17 @@ import renderCurrentWeather, {
 
 const userInput = document.querySelector('#user-input');
 
+let inputValue = '';
+
 export default function processInput() {
-  const locationInput = userInput.value;
+  inputValue = userInput.value;
+  console.log(inputValue);
   removeInfoCards();
-  renderCurrentWeather(locationInput);
+  renderCurrentWeather(inputValue);
   removeForecastCards();
-  renderForecast(locationInput, 7);
+  renderForecast(inputValue, 7);
+}
+
+export function getInputValue() {
+  return inputValue;
 }
