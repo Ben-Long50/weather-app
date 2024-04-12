@@ -51,7 +51,7 @@ function _getLocationData() {
             maxTempF: locationData.forecast.forecastday[0].day.maxtemp_f,
             maxTempC: locationData.forecast.forecastday[0].day.maxtemp_c,
             minTempF: locationData.forecast.forecastday[0].day.mintemp_f,
-            minTempc: locationData.forecast.forecastday[0].day.mintemp_c,
+            minTempC: locationData.forecast.forecastday[0].day.mintemp_c,
             windMph: locationData.current.gust_mph,
             windKph: locationData.current.gust_kph,
             precipIn: locationData.current.precip_in,
@@ -263,10 +263,11 @@ function _renderCurrentWeather() {
     return _regeneratorRuntime().wrap(function _callee$(_context) {
       while (1) switch (_context.prev = _context.next) {
         case 0:
-          _context.prev = 0;
-          _context.next = 3;
+          removeInfoCards();
+          _context.prev = 1;
+          _context.next = 4;
           return (0,_fetchData__WEBPACK_IMPORTED_MODULE_0__["default"])(location);
-        case 3:
+        case 4:
           locationData = _context.sent;
           setConditionImage(locationData);
           setConditionDesc(locationData);
@@ -280,17 +281,17 @@ function _renderCurrentWeather() {
           setPrecip(locationData);
           setSunset(locationData);
           (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.toggleTheme)(locationData.day);
-          _context.next = 21;
+          _context.next = 22;
           break;
-        case 18:
-          _context.prev = 18;
-          _context.t0 = _context["catch"](0);
+        case 19:
+          _context.prev = 19;
+          _context.t0 = _context["catch"](1);
           console.error(_context.t0);
-        case 21:
+        case 22:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 18]]);
+    }, _callee, null, [[1, 19]]);
   }));
   return _renderCurrentWeather.apply(this, arguments);
 }
@@ -351,22 +352,23 @@ function _renderForecast() {
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
+          removeForecastCards();
           i = 1;
-        case 1:
+        case 2:
           if (!(i < days)) {
-            _context2.next = 9;
+            _context2.next = 10;
             break;
           }
-          _context2.next = 4;
+          _context2.next = 5;
           return (0,_fetchData__WEBPACK_IMPORTED_MODULE_0__.getForecastData)(location, days, i);
-        case 4:
+        case 5:
           forecast = _context2.sent;
           createForecastCard(forecast);
-        case 6:
+        case 7:
           i++;
-          _context2.next = 1;
+          _context2.next = 2;
           break;
-        case 9:
+        case 10:
         case "end":
           return _context2.stop();
       }
@@ -427,17 +429,23 @@ function toggleTheme(day) {
 
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (/* binding */ processInput)
+/* harmony export */   "default": () => (/* binding */ processInput),
+/* harmony export */   getInputValue: () => (/* binding */ getInputValue)
 /* harmony export */ });
 /* harmony import */ var _renderDom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./renderDom */ "./src/renderDom.js");
 
 var userInput = document.querySelector('#user-input');
+var inputValue = '';
 function processInput() {
-  var locationInput = userInput.value;
+  inputValue = userInput.value;
+  console.log(inputValue);
   (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.removeInfoCards)();
-  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__["default"])(locationInput);
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__["default"])(inputValue);
   (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.removeForecastCards)();
-  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.renderForecast)(locationInput, 7);
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.renderForecast)(inputValue, 7);
+}
+function getInputValue() {
+  return inputValue;
 }
 
 /***/ }),
@@ -478,7 +486,7 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 50px;
+  gap: 60px;
   padding: 80px 160px;
 }
 
@@ -547,11 +555,12 @@ body {
 }
 
 #unit-toggle {
-  margin-left: auto;
   align-self: center;
+  justify-self: self-end;
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
   background-color: transparent;
   display: flex;
+  padding: 0;
   font-size: 24px;
   border-radius: 7px;
   outline: none;
@@ -560,7 +569,9 @@ body {
 
 #imperial,
 #metric {
-  padding: 7px;
+  width: 50%;
+  box-sizing: border-box;
+  padding: 10px;
 }
 
 #imperial {
@@ -672,7 +683,7 @@ body {
   font-size: 20px;
   text-align: center;
 }
-`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,sBAAsB;EACtB,mCAAmC;EACnC,2CAA2C;EAC3C,4DAA4D;EAC5D,8DAA8D;EAC9D,sBAAsB;EACtB,YAAY;EACZ,WAAW;EACX,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,qCAAqC;AACvC;;AAEA;EACE,YAAY;EACZ,uCAAuC;AACzC;AACA;EACE,eAAe;EACf,aAAa;EACb,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,2CAA2C;EAC3C,0BAA0B;EAC1B,aAAa;EACb,kBAAkB;EAClB,wBAAwB;AAC1B;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,eAAe;EACf,YAAY;AACd;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,6BAA6B;EAC7B,YAAY;AACd;;AAEA;EACE,sBAAsB;EACtB,YAAY;EACZ,aAAa;EACb,kCAAkC;EAClC,qBAAqB;EACrB,6BAA6B;AAC/B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,OAAO;EACP,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,iBAAiB;EACjB,kBAAkB;EAClB,2CAA2C;EAC3C,6BAA6B;EAC7B,aAAa;EACb,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,YAAY;AACd;;AAEA;;EAEE,YAAY;AACd;;AAEA;EACE,6BAA6B;EAC7B,0BAA0B;EAC1B,YAAY;AACd;;AAEA;EACE,uBAAuB;EACvB,0BAA0B;AAC5B;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,gBAAgB;EAChB,oBAAoB;EACpB,oBAAoB;AACtB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,sBAAsB;EACtB,iBAAiB;AACnB;;AAEA;EACE,sBAAsB;EACtB,kBAAkB;EAClB,uBAAuB;EACvB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,2DAA2D;EAC3D,WAAW;EACX,OAAO;AACT;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,8BAA8B;EAC9B,mBAAmB;EACnB,SAAS;EACT,wCAAwC;EACxC,aAAa;EACb,mBAAmB;EACnB,2CAA2C;AAC7C;;AAEA;EACE,eAAe;AACjB;;AAEA;;EAEE,eAAe;EACf,kBAAkB;AACpB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  font-family: 'Archivo';\n  --primary-color: rgb(142, 180, 255);\n  --secondary-color: rgba(255, 255, 255, 0.2);\n  --day-gradient: linear-gradient(to bottom, #49d5ff, #dcf5ff);\n  --night-gradient: linear-gradient(to bottom, #120052, #4700b9);\n  box-sizing: border-box;\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 50px;\n  padding: 80px 160px;\n}\n\n.day-theme {\n  color: black;\n  background-image: var(--day-gradient);\n}\n\n.night-theme {\n  color: white;\n  background-image: var(--night-gradient);\n}\n#nav-container {\n  grid-row: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  width: 100%;\n}\n\n#search-container {\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n  border-radius: 0 7px 7px 0;\n  display: flex;\n  align-self: center;\n  justify-self: flex-start;\n}\n\n#user-input {\n  border-radius: 7px 0 0 7px;\n  padding: 7px;\n  font-size: 24px;\n  border: none;\n}\n\n#search-button {\n  font-size: 24px;\n  padding: 7px;\n  background-color: transparent;\n  border: none;\n}\n\n#current-data-container {\n  box-sizing: border-box;\n  height: 40vh;\n  display: grid;\n  grid-template-columns: 1fr 2px 1fr;\n  grid-template-rows: 1;\n  background-color: transparent;\n}\n\n#name-info-container {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  flex: 1;\n  align-self: center;\n}\n\n#location-name {\n  font-size: 100px;\n  align-self: center;\n}\n\n#updated-time {\n  align-self: center;\n}\n\n#unit-toggle {\n  margin-left: auto;\n  align-self: center;\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n  background-color: transparent;\n  display: flex;\n  font-size: 24px;\n  border-radius: 7px;\n  outline: none;\n  border: none;\n}\n\n#imperial,\n#metric {\n  padding: 7px;\n}\n\n#imperial {\n  background-color: transparent;\n  border-radius: 7px 0 0 7px;\n  color: white;\n}\n\n#metric {\n  background-color: white;\n  border-radius: 0 7px 7px 0;\n}\n\n#condition-container {\n  grid-column: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: 2;\n  padding-right: 50px;\n}\n\n.condition-image {\n  grid-row: 1 / 3;\n  width: auto;\n  height: 100%;\n  object-fit: cover;\n}\n\n#current-temp {\n  font-size: 140px;\n  align-self: self-end;\n  padding-bottom: 30px;\n}\n\n.condition-desc {\n  font-size: 30px;\n  grid-column: 2 / 3;\n  align-self: self-start;\n  padding-top: 10px;\n}\n\n#dividing-line {\n  box-sizing: border-box;\n  grid-column: 2 / 3;\n  background-color: black;\n  margin: 50px 0;\n}\n\n#info-container {\n  grid-column: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 20px;\n  padding: 50px;\n  place-items: center;\n}\n\n.info-card {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 15px;\n}\n\n.info-icon {\n  grid-column: 1 / 2;\n  grid-row: 1 / 3;\n}\n\n.info-header {\n  grid-column: 2 / 3;\n  grid-row: 1 / 2;\n  font-size: 20px;\n}\n\n.info-value {\n  grid-column: 2 / 3;\n  grid-row: 2 / 3;\n  font-size: 30px;\n}\n\n#forecast-container {\n  display: grid;\n  flex-grow: 1;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  width: 100%;\n  gap: 4%;\n}\n\n.forecast-card {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  gap: 15px;\n  background-color: var(--secondary-color);\n  padding: 30px;\n  border-radius: 10px;\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n}\n\n.forecast-data {\n  font-size: 36px;\n}\n\n.forecast-condition,\n.forecast-day {\n  font-size: 20px;\n  text-align: center;\n}\n"],"sourceRoot":""}]);
+`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,sBAAsB;EACtB,mCAAmC;EACnC,2CAA2C;EAC3C,4DAA4D;EAC5D,8DAA8D;EAC9D,sBAAsB;EACtB,YAAY;EACZ,WAAW;EACX,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mBAAmB;AACrB;;AAEA;EACE,YAAY;EACZ,qCAAqC;AACvC;;AAEA;EACE,YAAY;EACZ,uCAAuC;AACzC;AACA;EACE,eAAe;EACf,aAAa;EACb,qCAAqC;EACrC,WAAW;AACb;;AAEA;EACE,2CAA2C;EAC3C,0BAA0B;EAC1B,aAAa;EACb,kBAAkB;EAClB,wBAAwB;AAC1B;;AAEA;EACE,0BAA0B;EAC1B,YAAY;EACZ,eAAe;EACf,YAAY;AACd;;AAEA;EACE,eAAe;EACf,YAAY;EACZ,6BAA6B;EAC7B,YAAY;AACd;;AAEA;EACE,sBAAsB;EACtB,YAAY;EACZ,aAAa;EACb,kCAAkC;EAClC,qBAAqB;EACrB,6BAA6B;AAC/B;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,OAAO;EACP,kBAAkB;AACpB;;AAEA;EACE,gBAAgB;EAChB,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;AACpB;;AAEA;EACE,kBAAkB;EAClB,sBAAsB;EACtB,2CAA2C;EAC3C,6BAA6B;EAC7B,aAAa;EACb,UAAU;EACV,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,YAAY;AACd;;AAEA;;EAEE,UAAU;EACV,sBAAsB;EACtB,aAAa;AACf;;AAEA;EACE,6BAA6B;EAC7B,0BAA0B;EAC1B,YAAY;AACd;;AAEA;EACE,uBAAuB;EACvB,0BAA0B;AAC5B;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,gBAAgB;EAChB,oBAAoB;EACpB,oBAAoB;AACtB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,sBAAsB;EACtB,iBAAiB;AACnB;;AAEA;EACE,sBAAsB;EACtB,kBAAkB;EAClB,uBAAuB;EACvB,cAAc;AAChB;;AAEA;EACE,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;AACX;;AAEA;EACE,kBAAkB;EAClB,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,kBAAkB;EAClB,eAAe;EACf,eAAe;AACjB;;AAEA;EACE,aAAa;EACb,YAAY;EACZ,2DAA2D;EAC3D,WAAW;EACX,OAAO;AACT;;AAEA;EACE,aAAa;EACb,sBAAsB;EACtB,8BAA8B;EAC9B,mBAAmB;EACnB,SAAS;EACT,wCAAwC;EACxC,aAAa;EACb,mBAAmB;EACnB,2CAA2C;AAC7C;;AAEA;EACE,eAAe;AACjB;;AAEA;;EAEE,eAAe;EACf,kBAAkB;AACpB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  font-family: 'Archivo';\n  --primary-color: rgb(142, 180, 255);\n  --secondary-color: rgba(255, 255, 255, 0.2);\n  --day-gradient: linear-gradient(to bottom, #49d5ff, #dcf5ff);\n  --night-gradient: linear-gradient(to bottom, #120052, #4700b9);\n  box-sizing: border-box;\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 60px;\n  padding: 80px 160px;\n}\n\n.day-theme {\n  color: black;\n  background-image: var(--day-gradient);\n}\n\n.night-theme {\n  color: white;\n  background-image: var(--night-gradient);\n}\n#nav-container {\n  grid-row: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  width: 100%;\n}\n\n#search-container {\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n  border-radius: 0 7px 7px 0;\n  display: flex;\n  align-self: center;\n  justify-self: flex-start;\n}\n\n#user-input {\n  border-radius: 7px 0 0 7px;\n  padding: 7px;\n  font-size: 24px;\n  border: none;\n}\n\n#search-button {\n  font-size: 24px;\n  padding: 7px;\n  background-color: transparent;\n  border: none;\n}\n\n#current-data-container {\n  box-sizing: border-box;\n  height: 40vh;\n  display: grid;\n  grid-template-columns: 1fr 2px 1fr;\n  grid-template-rows: 1;\n  background-color: transparent;\n}\n\n#name-info-container {\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n  flex: 1;\n  align-self: center;\n}\n\n#location-name {\n  font-size: 100px;\n  align-self: center;\n}\n\n#updated-time {\n  align-self: center;\n}\n\n#unit-toggle {\n  align-self: center;\n  justify-self: self-end;\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n  background-color: transparent;\n  display: flex;\n  padding: 0;\n  font-size: 24px;\n  border-radius: 7px;\n  outline: none;\n  border: none;\n}\n\n#imperial,\n#metric {\n  width: 50%;\n  box-sizing: border-box;\n  padding: 10px;\n}\n\n#imperial {\n  background-color: transparent;\n  border-radius: 7px 0 0 7px;\n  color: white;\n}\n\n#metric {\n  background-color: white;\n  border-radius: 0 7px 7px 0;\n}\n\n#condition-container {\n  grid-column: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: 2;\n  padding-right: 50px;\n}\n\n.condition-image {\n  grid-row: 1 / 3;\n  width: auto;\n  height: 100%;\n  object-fit: cover;\n}\n\n#current-temp {\n  font-size: 140px;\n  align-self: self-end;\n  padding-bottom: 30px;\n}\n\n.condition-desc {\n  font-size: 30px;\n  grid-column: 2 / 3;\n  align-self: self-start;\n  padding-top: 10px;\n}\n\n#dividing-line {\n  box-sizing: border-box;\n  grid-column: 2 / 3;\n  background-color: black;\n  margin: 50px 0;\n}\n\n#info-container {\n  grid-column: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 20px;\n  padding: 50px;\n  place-items: center;\n}\n\n.info-card {\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 15px;\n}\n\n.info-icon {\n  grid-column: 1 / 2;\n  grid-row: 1 / 3;\n}\n\n.info-header {\n  grid-column: 2 / 3;\n  grid-row: 1 / 2;\n  font-size: 20px;\n}\n\n.info-value {\n  grid-column: 2 / 3;\n  grid-row: 2 / 3;\n  font-size: 30px;\n}\n\n#forecast-container {\n  display: grid;\n  flex-grow: 1;\n  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));\n  width: 100%;\n  gap: 4%;\n}\n\n.forecast-card {\n  display: flex;\n  flex-direction: column;\n  justify-content: space-between;\n  align-items: center;\n  gap: 15px;\n  background-color: var(--secondary-color);\n  padding: 30px;\n  border-radius: 10px;\n  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);\n}\n\n.forecast-data {\n  font-size: 36px;\n}\n\n.forecast-condition,\n.forecast-day {\n  font-size: 20px;\n  text-align: center;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1412,7 +1423,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_reset_css_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/reset-css.css */ "./src/styles/reset-css.css");
 /* harmony import */ var _renderDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderDom */ "./src/renderDom.js");
 /* harmony import */ var _userInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./userInput */ "./src/userInput.js");
+/* harmony import */ var _toggleUnits__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./toggleUnits */ "./src/toggleUnits.js");
 // WeatherAPI Key: f895889501ed4aaf898183007240904
+
 
 
 
@@ -1429,6 +1442,13 @@ searchButton.addEventListener('keydown', function (event) {
   if (event.key === 'Enter' || event.keyCode === 13) {
     (0,_userInput__WEBPACK_IMPORTED_MODULE_3__["default"])();
   }
+});
+var unitToggle = document.querySelector('#unit-toggle');
+unitToggle.addEventListener('click', function () {
+  (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_4__["default"])();
+  var location = (0,_userInput__WEBPACK_IMPORTED_MODULE_3__.getInputValue)();
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_2__["default"])(location);
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_2__.renderForecast)(location, 7);
 });
 })();
 
