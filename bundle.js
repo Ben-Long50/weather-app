@@ -117,6 +117,7 @@ function _getForecastData() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (/* binding */ renderCurrentWeather),
+/* harmony export */   removeForecastCards: () => (/* binding */ removeForecastCards),
 /* harmony export */   renderForecast: () => (/* binding */ renderForecast)
 /* harmony export */ });
 /* harmony import */ var _fetchData__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./fetchData */ "./src/fetchData.js");
@@ -128,13 +129,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 
 var currentContainer = document.querySelector('#current-data-container');
+var infoContainer = document.querySelector('#info-container');
 var conditionImage = currentContainer.querySelector('.condition-image');
 var conditionDesc = currentContainer.querySelector('.condition-desc');
 var locationName = document.querySelector('#location-name');
 var updatedTime = document.querySelector('#updated-time');
 var currentTemp = document.querySelector('#current-temp');
 var windSpeed = document.querySelector('#wind-speed');
-var precip = document.querySelector('#precip');
+function renderInfoCard(id) {
+  var infoCard = document.createElement('div');
+  infoCard.classList.add('info-card');
+  var infoIcon = document.createElement('i');
+  infoIcon.classList.add('info-icon');
+  var infoHeader = document.createElement('h3');
+  infoHeader.classList.add('info-header');
+  var infoValue = document.createElement('h2');
+  infoValue.id = id;
+  infoValue.classList.add('info-value');
+  infoCard.appendChild(infoIcon);
+  infoCard.appendChild(infoHeader);
+  infoCard.appendChild(infoValue);
+  infoContainer.appendChild(infoCard);
+}
 function setConditionImage(locationData) {
   conditionImage.src = locationData.icon;
 }
@@ -175,6 +191,8 @@ function setWindSpeed(locationData) {
   }
 }
 function setPrecip(locationData) {
+  renderInfoCard('precip');
+  var precip = document.querySelector('#precip');
   var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   if (units === 'imperial') {
     precip.textContent = "".concat(locationData.precipIn, " in");
@@ -201,43 +219,83 @@ function _renderCurrentWeather() {
           setLocationName(locationData);
           setUpdatedTime(locationData);
           setCurrentTemp(locationData);
-          setWindSpeed(locationData);
+          // setWindSpeed(locationData);
           setPrecip(locationData);
-          _context.next = 16;
+          _context.next = 15;
           break;
-        case 13:
-          _context.prev = 13;
+        case 12:
+          _context.prev = 12;
           _context.t0 = _context["catch"](0);
           console.error(_context.t0);
-        case 16:
+        case 15:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 13]]);
+    }, _callee, null, [[0, 12]]);
   }));
   return _renderCurrentWeather.apply(this, arguments);
 }
 var forecastContainer = document.querySelector('#forecast-container');
-function createForecastCard() {
+function createForecastCard(forecast) {
+  var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   var forecastCard = document.createElement('div');
   forecastCard.classList.add('forecast-card');
   forecastContainer.appendChild(forecastCard);
-  var tempData = document.createElement('h2');
+  var highTempData = document.createElement('h2');
+  highTempData.classList.add('forecast-data');
+  if (units === 'imperial') {
+    highTempData.textContent = "".concat(forecast.maxTempF, " \xB0F");
+  } else if (units === 'metric') {
+    highTempData.textContent = "".concat(forecast.maxTempC, " \xB0C");
+  }
+  var lowTempData = document.createElement('h2');
+  lowTempData.classList.add('forecast-data');
+  if (units === 'imperial') {
+    lowTempData.textContent = "".concat(forecast.minTempF, " \xB0F");
+  } else if (units === 'metric') {
+    lowTempData.textContent = "".concat(forecast.minTempC, " \xB0C");
+  }
   var icon = document.createElement('img');
+  icon.src = forecast.icon;
   var condition = document.createElement('h3');
-  forecastCard.appendChild('tempData');
-  forecastCard.appendChild('icon');
-  forecastCard.appendChild('condition');
-  forecastCard.appendChild('tempData');
+  condition.classList.add('forecast-condition');
+  condition.textContent = forecast.condition;
+  forecastCard.appendChild(highTempData);
+  forecastCard.appendChild(icon);
+  forecastCard.appendChild(condition);
+  forecastCard.appendChild(lowTempData);
 }
-function renderForecast(_x2, _x3, _x4) {
+function removeForecastCards() {
+  while (forecastContainer.firstChild) {
+    forecastContainer.firstChild.remove();
+  }
+}
+function renderForecast(_x2, _x3) {
   return _renderForecast.apply(this, arguments);
 }
 function _renderForecast() {
-  _renderForecast = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(location, days, index) {
+  _renderForecast = _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2(location, days) {
+    var i, forecast;
     return _regeneratorRuntime().wrap(function _callee2$(_context2) {
       while (1) switch (_context2.prev = _context2.next) {
         case 0:
+          i = 1;
+        case 1:
+          if (!(i < days)) {
+            _context2.next = 10;
+            break;
+          }
+          console.log('done');
+          _context2.next = 5;
+          return (0,_fetchData__WEBPACK_IMPORTED_MODULE_0__.getForecastData)(location, days, i);
+        case 5:
+          forecast = _context2.sent;
+          createForecastCard(forecast);
+        case 7:
+          i++;
+          _context2.next = 1;
+          break;
+        case 10:
         case "end":
           return _context2.stop();
       }
@@ -289,6 +347,8 @@ var userInput = document.querySelector('#user-input');
 function processInput() {
   var locationInput = userInput.value;
   (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__["default"])(locationInput);
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.removeForecastCards)();
+  (0,_renderDom__WEBPACK_IMPORTED_MODULE_0__.renderForecast)(locationInput, 6);
 }
 
 /***/ }),
@@ -319,16 +379,16 @@ body {
 }
 
 #weather-app-container {
+  font-family: 'Archivo';
   --main-color: rgb(142, 180, 255);
   --secondary-color: rgb(86, 151, 255);
   box-sizing: border-box;
   height: 100%;
   width: 100%;
-  display: grid;
-  /* grid-template-columns: auto; */
-  grid-template-rows: 32px auto auto;
-  gap: 20px;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5%;
+  padding: 80px 160px;
   background-color: var(--secondary-color);
 }
 
@@ -370,8 +430,8 @@ body {
   display: grid;
   grid-template-columns: 1fr 2px 1fr;
   grid-template-rows: 1fr 5fr;
-  background-color: var(--main-color);
-  border: solid black 1px;
+  background-color: var(--secondary-color);
+  /* border: solid black 1px; */
   border-radius: 10px;
   padding: 10px;
 }
@@ -431,26 +491,38 @@ body {
   grid-template-rows: repeat(2, 1fr);
   gap: 20px;
   padding: 30px;
+  place-items: center;
 }
 
 #forecast-container {
   grid-row: 3 / 4;
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   height: 100%;
   width: 100%;
-  gap: 20px;
+  /* gap: 20px; */
 }
 
 .forecast-card {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
   gap: 15px;
-  background-color: var(--main-color);
-  border: solid black 1px;
+  background-color: var(--secondary-color);
+  /* border: solid black 1px; */
   border-radius: 10px;
 }
-`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,gCAAgC;EAChC,oCAAoC;EACpC,sBAAsB;EACtB,YAAY;EACZ,WAAW;EACX,aAAa;EACb,iCAAiC;EACjC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,wCAAwC;AAC1C;;AAEA;EACE,eAAe;EACf,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,oCAAoC;EACpC,aAAa;AACf;;AAEA;EACE,4BAA4B;EAC5B,kBAAkB;EAClB,eAAe;EACf,kCAAkC;EAClC,qCAAqC;EACrC,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,4BAA4B;EAC5B,mCAAmC;EACnC,kCAAkC;EAClC,qCAAqC;EACrC,oCAAoC;EACpC,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,sBAAsB;EACtB,eAAe;EACf,aAAa;EACb,kCAAkC;EAClC,2BAA2B;EAC3B,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;EACnB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,sBAAsB;EACtB,SAAS;AACX;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,gBAAgB;EAChB,oBAAoB;EACpB,oBAAoB;AACtB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,sBAAsB;EACtB,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;AACf;;AAEA;EACE,eAAe;EACf,aAAa;EACb,YAAY;EACZ,WAAW;EACX,SAAS;AACX;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,sBAAsB;EACtB,SAAS;EACT,mCAAmC;EACnC,uBAAuB;EACvB,mBAAmB;AACrB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  --main-color: rgb(142, 180, 255);\n  --secondary-color: rgb(86, 151, 255);\n  box-sizing: border-box;\n  height: 100%;\n  width: 100%;\n  display: grid;\n  /* grid-template-columns: auto; */\n  grid-template-rows: 32px auto auto;\n  gap: 20px;\n  padding: 20px;\n  background-color: var(--secondary-color);\n}\n\n#nav-container {\n  grid-row: 1 / 2;\n  display: flex;\n  justify-content: space-between;\n}\n\n#search-container {\n  --border-property: solid black 1.5px;\n  display: flex;\n}\n\n#user-input {\n  border-radius: 16px 0 0 16px;\n  padding-left: 10px;\n  font-size: 16px;\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-left: var(--border-property);\n  border-right: none;\n}\n\n#search-button {\n  font-size: 16px;\n  border-radius: 0 16px 16px 0;\n  background-color: var(--main-color);\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-right: var(--border-property);\n  border-left: none;\n  outline: none;\n}\n\n#current-data-container {\n  box-sizing: border-box;\n  grid-row: 2 / 3;\n  display: grid;\n  grid-template-columns: 1fr 2px 1fr;\n  grid-template-rows: 1fr 5fr;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n  padding: 10px;\n}\n\n#name-info-container {\n  grid-row: 1 / 3;\n  grid-column: 1 / 3;\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n}\n\n#location-name {\n  font-size: 50px;\n}\n\n#condition-container {\n  grid-row: 2 / 3;\n  grid-column: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: 2;\n  padding-right: 30px;\n}\n\n.condition-image {\n  grid-row: 1 / 3;\n  width: auto;\n  height: 100%;\n  object-fit: cover;\n}\n\n#current-temp {\n  font-size: 100px;\n  align-self: self-end;\n  padding-bottom: 30px;\n}\n\n.condition-desc {\n  font-size: 30px;\n  grid-column: 2 / 3;\n  align-self: self-start;\n  padding-top: 10px;\n}\n\n#dividing-line {\n  grid-row: 2 / 3;\n  grid-column: 2 / 3;\n  background-color: black;\n}\n\n#info-container {\n  grid-row: 2 / 3;\n  grid-column: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 20px;\n  padding: 30px;\n}\n\n#forecast-container {\n  grid-row: 3 / 4;\n  display: flex;\n  height: 100%;\n  width: 100%;\n  gap: 20px;\n}\n\n.forecast-card {\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n  gap: 15px;\n  background-color: var(--main-color);\n  border: solid black 1px;\n  border-radius: 10px;\n}\n"],"sourceRoot":""}]);
+
+.forecast-data {
+  font-size: 36px;
+}
+
+.forecast-condition {
+  font-size: 28px;
+}
+`, "",{"version":3,"sources":["webpack://./src/styles/main.css"],"names":[],"mappings":"AAAA;;EAEE,YAAY;EACZ,WAAW;AACb;;AAEA;EACE,sBAAsB;EACtB,gCAAgC;EAChC,oCAAoC;EACpC,sBAAsB;EACtB,YAAY;EACZ,WAAW;EACX,aAAa;EACb,sBAAsB;EACtB,OAAO;EACP,mBAAmB;EACnB,wCAAwC;AAC1C;;AAEA;EACE,eAAe;EACf,aAAa;EACb,8BAA8B;AAChC;;AAEA;EACE,oCAAoC;EACpC,aAAa;AACf;;AAEA;EACE,4BAA4B;EAC5B,kBAAkB;EAClB,eAAe;EACf,kCAAkC;EAClC,qCAAqC;EACrC,mCAAmC;EACnC,kBAAkB;AACpB;;AAEA;EACE,eAAe;EACf,4BAA4B;EAC5B,mCAAmC;EACnC,kCAAkC;EAClC,qCAAqC;EACrC,oCAAoC;EACpC,iBAAiB;EACjB,aAAa;AACf;;AAEA;EACE,sBAAsB;EACtB,eAAe;EACf,aAAa;EACb,kCAAkC;EAClC,2BAA2B;EAC3B,wCAAwC;EACxC,6BAA6B;EAC7B,mBAAmB;EACnB,aAAa;AACf;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,sBAAsB;EACtB,SAAS;AACX;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,qBAAqB;EACrB,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,WAAW;EACX,YAAY;EACZ,iBAAiB;AACnB;;AAEA;EACE,gBAAgB;EAChB,oBAAoB;EACpB,oBAAoB;AACtB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,sBAAsB;EACtB,iBAAiB;AACnB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,uBAAuB;AACzB;;AAEA;EACE,eAAe;EACf,kBAAkB;EAClB,aAAa;EACb,qCAAqC;EACrC,kCAAkC;EAClC,SAAS;EACT,aAAa;EACb,mBAAmB;AACrB;;AAEA;EACE,eAAe;EACf,aAAa;EACb,4DAA4D;EAC5D,YAAY;EACZ,WAAW;EACX,eAAe;AACjB;;AAEA;EACE,YAAY;EACZ,aAAa;EACb,sBAAsB;EACtB,6BAA6B;EAC7B,mBAAmB;EACnB,SAAS;EACT,wCAAwC;EACxC,6BAA6B;EAC7B,mBAAmB;AACrB;;AAEA;EACE,eAAe;AACjB;;AAEA;EACE,eAAe;AACjB","sourcesContent":["html,\nbody {\n  height: 100%;\n  width: 100%;\n}\n\n#weather-app-container {\n  font-family: 'Archivo';\n  --main-color: rgb(142, 180, 255);\n  --secondary-color: rgb(86, 151, 255);\n  box-sizing: border-box;\n  height: 100%;\n  width: 100%;\n  display: flex;\n  flex-direction: column;\n  gap: 5%;\n  padding: 80px 160px;\n  background-color: var(--secondary-color);\n}\n\n#nav-container {\n  grid-row: 1 / 2;\n  display: flex;\n  justify-content: space-between;\n}\n\n#search-container {\n  --border-property: solid black 1.5px;\n  display: flex;\n}\n\n#user-input {\n  border-radius: 16px 0 0 16px;\n  padding-left: 10px;\n  font-size: 16px;\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-left: var(--border-property);\n  border-right: none;\n}\n\n#search-button {\n  font-size: 16px;\n  border-radius: 0 16px 16px 0;\n  background-color: var(--main-color);\n  border-top: var(--border-property);\n  border-bottom: var(--border-property);\n  border-right: var(--border-property);\n  border-left: none;\n  outline: none;\n}\n\n#current-data-container {\n  box-sizing: border-box;\n  grid-row: 2 / 3;\n  display: grid;\n  grid-template-columns: 1fr 2px 1fr;\n  grid-template-rows: 1fr 5fr;\n  background-color: var(--secondary-color);\n  /* border: solid black 1px; */\n  border-radius: 10px;\n  padding: 10px;\n}\n\n#name-info-container {\n  grid-row: 1 / 3;\n  grid-column: 1 / 3;\n  display: flex;\n  flex-direction: column;\n  gap: 14px;\n}\n\n#location-name {\n  font-size: 50px;\n}\n\n#condition-container {\n  grid-row: 2 / 3;\n  grid-column: 1 / 2;\n  display: grid;\n  grid-template-columns: repeat(2, 1fr);\n  grid-template-rows: 2;\n  padding-right: 30px;\n}\n\n.condition-image {\n  grid-row: 1 / 3;\n  width: auto;\n  height: 100%;\n  object-fit: cover;\n}\n\n#current-temp {\n  font-size: 100px;\n  align-self: self-end;\n  padding-bottom: 30px;\n}\n\n.condition-desc {\n  font-size: 30px;\n  grid-column: 2 / 3;\n  align-self: self-start;\n  padding-top: 10px;\n}\n\n#dividing-line {\n  grid-row: 2 / 3;\n  grid-column: 2 / 3;\n  background-color: black;\n}\n\n#info-container {\n  grid-row: 2 / 3;\n  grid-column: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  grid-template-rows: repeat(2, 1fr);\n  gap: 20px;\n  padding: 30px;\n  place-items: center;\n}\n\n#forecast-container {\n  grid-row: 3 / 4;\n  display: grid;\n  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));\n  height: 100%;\n  width: 100%;\n  /* gap: 20px; */\n}\n\n.forecast-card {\n  flex-grow: 1;\n  display: flex;\n  flex-direction: column;\n  justify-content: space-evenly;\n  align-items: center;\n  gap: 15px;\n  background-color: var(--secondary-color);\n  /* border: solid black 1px; */\n  border-radius: 10px;\n}\n\n.forecast-data {\n  font-size: 36px;\n}\n\n.forecast-condition {\n  font-size: 28px;\n}\n"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -1190,14 +1262,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _styles_reset_css_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/reset-css.css */ "./src/styles/reset-css.css");
 /* harmony import */ var _renderDom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./renderDom */ "./src/renderDom.js");
 /* harmony import */ var _userInput__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./userInput */ "./src/userInput.js");
-/* harmony import */ var _fetchData__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./fetchData */ "./src/fetchData.js");
 // WeatherAPI Key: f895889501ed4aaf898183007240904
 
 
 
 
-
 (0,_renderDom__WEBPACK_IMPORTED_MODULE_2__["default"])('huntington beach');
+(0,_renderDom__WEBPACK_IMPORTED_MODULE_2__.renderForecast)('huntington beach', 6);
 var searchButton = document.querySelector('#search-button');
 searchButton.addEventListener('click', _userInput__WEBPACK_IMPORTED_MODULE_3__["default"]);
 searchButton.addEventListener('keydown', function (event) {
@@ -1205,8 +1276,6 @@ searchButton.addEventListener('keydown', function (event) {
     (0,_userInput__WEBPACK_IMPORTED_MODULE_3__["default"])();
   }
 });
-console.log((0,_fetchData__WEBPACK_IMPORTED_MODULE_4__["default"])('london'));
-console.log((0,_fetchData__WEBPACK_IMPORTED_MODULE_4__.getForecastData)('london', 7, 1));
 })();
 
 /******/ })()
