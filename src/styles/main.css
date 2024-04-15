@@ -103,14 +103,26 @@ body {
   padding: 10px;
 }
 
-#imperial {
+.active-unit {
+  background-color: white;
+  color: black;
+}
+
+.inactive-unit-day {
   background-color: transparent;
-  border-radius: 7px 0 0 7px;
+  color: black;
+}
+
+.inactive-unit-night {
+  background-color: transparent;
   color: white;
 }
 
+#imperial {
+  border-radius: 7px 0 0 7px;
+}
+
 #metric {
-  background-color: white;
   border-radius: 0 7px 7px 0;
 }
 

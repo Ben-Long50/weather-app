@@ -3,9 +3,10 @@ import './styles/main.css';
 import './styles/reset-css.css';
 import renderCurrentWeather, { renderForecast } from './renderDom';
 import processInput, { getInputValue } from './userInput';
-import toggleUnits from './toggleUnits';
+import toggleUnits, { getUnitsValue, toggleUnitTheme } from './toggleUnits';
 // import { fetchConditionData } from './fetchData';
 
+toggleUnitTheme(getUnitsValue(), 'london');
 renderCurrentWeather('london');
 renderForecast('london', 7);
 // fetchConditionData();
@@ -22,6 +23,7 @@ const unitToggle = document.querySelector('#unit-toggle');
 unitToggle.addEventListener('click', () => {
   toggleUnits();
   const location = getInputValue();
+  toggleUnitTheme(getUnitsValue(), location);
   renderCurrentWeather(location);
   renderForecast(location, 7);
 });
