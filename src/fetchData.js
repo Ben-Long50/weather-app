@@ -1,4 +1,8 @@
-// import conditionList from './weatherApiConditionList.json';
+import { closest } from 'fastest-levenshtein';
+import conditionList from './weatherApiConditionList.json';
+
+const dayConditions = conditionList.map((object) => object.day);
+const nightConditions = conditionList.map((object) => object.night);
 
 export default async function getLocationData(location) {
   try {
@@ -54,16 +58,19 @@ export async function getForecastData(location, days, index) {
   }
 }
 
-// export async function fetchConditionData() {
-//   try {
-//     const response = await fetch(conditionList);
-//     if (!response.ok) {
-//       throw new Error('Network response was not ok');
-//     }
-//     const data = await response.json();
-//     console.log(data);
-//     return data;
-//   } catch (error) {
-//     console.error('There was a problem with the fetch operation:', error);
-//   }
-// }
+export function getConditionIcon(condition, isDay) {
+  if (isDay === 1) {
+    const closestCondition = closest(condition, dayConditions);
+    const currentCondition = conditionList.find(
+      (item) => item.day === closestCondition,
+    );
+    return currentCondition['day-icon-class'];
+  }
+  if (isDay === 0) {
+    const closestCondition = closest(condition, nightConditions);
+    const currentCondition = conditionList.find(
+      (item) => item.night === closestCondition,
+    );
+    return currentCondition['night-icon-class'];
+  }
+}

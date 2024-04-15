@@ -40,12 +40,13 @@ module.exports = {
         },
       },
       {
-        test: /\.(png|svg|jpg|jpeg|gif|ttf|otf)$/i,
+        test: /\.(png|jpg|jpeg|gif|otf|woff|woff2|eot|ttf|svg)$/i,
         type: 'asset/resource',
       },
       {
         test: /\.json$/,
         use: 'json-loader',
+        type: 'javascript/auto',
       },
     ],
   },

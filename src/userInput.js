@@ -7,7 +7,7 @@ import { getUnitsValue, toggleUnitTheme } from './toggleUnits';
 
 const userInput = document.querySelector('#user-input');
 
-let inputValue = '';
+let inputValue = 'london';
 
 export default function processInput() {
   inputValue = userInput.value;

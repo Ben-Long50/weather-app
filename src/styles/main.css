@@ -40,7 +40,7 @@ body {
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
   border-radius: 0 7px 7px 0;
   display: flex;
-  align-self: center;
+  align-self: flex-start;
   justify-self: flex-start;
 }
 
@@ -78,6 +78,7 @@ body {
 #location-name {
   font-size: 100px;
   align-self: center;
+  text-align: center;
 }
 
 #updated-time {
@@ -85,7 +86,7 @@ body {
 }
 
 #unit-toggle {
-  align-self: center;
+  align-self: flex-start;
   justify-self: self-end;
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
   background-color: transparent;
@@ -133,26 +134,30 @@ body {
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: 2;
   padding-right: 50px;
+  gap: 50px;
+}
+
+#icon-container {
+  grid-row: 1 / 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .condition-image {
-  grid-row: 1 / 3;
-  width: auto;
-  height: 100%;
-  object-fit: cover;
+  font-size: 350px;
+  color: inherit;
 }
 
 #current-temp {
   font-size: 140px;
   align-self: self-end;
-  padding-bottom: 30px;
 }
 
 .condition-desc {
   font-size: 30px;
   grid-column: 2 / 3;
   align-self: self-start;
-  padding-top: 10px;
 }
 
 #dividing-line {
@@ -179,9 +184,16 @@ body {
   gap: 15px;
 }
 
-.info-icon {
+.info-icon-container {
   grid-column: 1 / 2;
   grid-row: 1 / 3;
+  display: grid;
+  place-items: center;
+}
+
+.info-icon {
+  font-size: 60px;
+  color: inherit;
 }
 
 .info-header {
@@ -214,6 +226,11 @@ body {
   padding: 30px;
   border-radius: 10px;
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
+}
+
+.forecast-icon {
+  font-size: 70px;
+  color: inherit;
 }
 
 .forecast-data {
