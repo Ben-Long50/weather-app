@@ -7,7 +7,8 @@ body {
 #weather-app-container {
   font-family: 'Archivo';
   --primary-color: rgb(142, 180, 255);
-  --secondary-color: rgba(255, 255, 255, 0.2);
+  --day-color: rgba(255, 255, 255, 0.2);
+  --night-color: rgba(0, 0, 0, 0.2);
   --day-gradient: linear-gradient(to bottom, #49d5ff, #dcf5ff);
   --night-gradient: linear-gradient(to bottom, #120052, #4700b9);
   box-sizing: border-box;
@@ -209,7 +210,7 @@ body {
   justify-content: space-between;
   align-items: center;
   gap: 15px;
-  background-color: var(--secondary-color);
+  background-color: var(--day-color);
   padding: 30px;
   border-radius: 10px;
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);

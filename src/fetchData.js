@@ -40,6 +40,7 @@ export async function getForecastData(location, days, index) {
     );
     const locationData = await response.json();
     return {
+      day: locationData.current.is_day,
       date: locationData.forecast.forecastday[index].date,
       condition: locationData.forecast.forecastday[index].day.condition.text,
       icon: locationData.forecast.forecastday[index].day.condition.icon,

@@ -145,6 +145,11 @@ function createForecastCard(forecast) {
   const units = getUnitsValue();
   const forecastCard = document.createElement('div');
   forecastCard.classList.add('forecast-card');
+  if (forecast.addday === 1) {
+    forecastCard.style.backgroundColor = 'var(--day-color)';
+  } else if (forecast.day === 0) {
+    forecastCard.style.backgroundColor = 'var(--night-color)';
+  }
   forecastContainer.appendChild(forecastCard);
   const day = document.createElement('h3');
   day.classList.add('forecast-day');
