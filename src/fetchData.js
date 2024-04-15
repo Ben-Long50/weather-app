@@ -7,7 +7,7 @@ const nightConditions = conditionList.map((object) => object.night);
 export default async function getLocationData(location) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&aqi=no`,
+      `https://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&aqi=no`,
       { mode: 'cors' },
     );
     const locationData = await response.json();
@@ -39,7 +39,7 @@ export default async function getLocationData(location) {
 export async function getForecastData(location, days, index) {
   try {
     const response = await fetch(
-      `http://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&days=${days}&aqi=no`,
+      `https://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&days=${days}&aqi=no`,
       { mode: 'cors' },
     );
     const locationData = await response.json();
