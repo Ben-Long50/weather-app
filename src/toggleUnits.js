@@ -40,12 +40,10 @@ export async function toggleUnitTheme(unit, location) {
   const imperialButton = document.querySelector('#imperial');
   const metricButton = document.querySelector('#metric');
 
-  console.log('running');
   switch (unit) {
     case 'imperial':
       switch (day) {
         case 1:
-          console.log('case 1/1');
           imperialButton.classList.remove(
             'inactive-unit-day',
             'inactive-unit-night',
@@ -55,7 +53,6 @@ export async function toggleUnitTheme(unit, location) {
           metricButton.classList.add('inactive-unit-day');
           break;
         case 0:
-          console.log('case 1/2');
           imperialButton.classList.remove(
             'inactive-unit-day',
             'inactive-unit-night',
@@ -69,7 +66,6 @@ export async function toggleUnitTheme(unit, location) {
     case 'metric':
       switch (day) {
         case 1:
-          console.log('case 2/1');
           metricButton.classList.remove(
             'inactive-unit-day',
             'inactive-unit-night',
@@ -79,7 +75,6 @@ export async function toggleUnitTheme(unit, location) {
           imperialButton.classList.add('inactive-unit-day');
           break;
         case 0:
-          console.log('case 2/2');
           metricButton.classList.remove(
             'inactive-unit-day',
             'inactive-unit-night',
@@ -91,7 +86,6 @@ export async function toggleUnitTheme(unit, location) {
       }
       break;
     default:
-      console.log('default');
       imperialButton.classList.remove(
         'active-unit',
         'inactive-unit-day',

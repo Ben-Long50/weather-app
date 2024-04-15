@@ -156,8 +156,6 @@ function createForecastCard(forecast) {
   const units = getUnitsValue();
   const forecastCard = document.createElement('div');
   forecastCard.classList.add('forecast-card');
-  console.log(forecast.day);
-  console.log(forecast.condition);
   if (forecast.day === 1) {
     forecastCard.style.backgroundColor = 'var(--day-color)';
   } else if (forecast.day === 0) {

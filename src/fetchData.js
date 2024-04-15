@@ -11,7 +11,6 @@ export default async function getLocationData(location) {
       { mode: 'cors' },
     );
     const locationData = await response.json();
-    console.log(locationData);
     return {
       name: locationData.location.name,
       icon: locationData.current.condition.icon,
