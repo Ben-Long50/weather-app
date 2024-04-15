@@ -49,7 +49,6 @@ function _getLocationData() {
           return response.json();
         case 6:
           locationData = _context.sent;
-          console.log(locationData);
           return _context.abrupt("return", {
             name: locationData.location.name,
             icon: locationData.current.condition.icon,
@@ -69,15 +68,15 @@ function _getLocationData() {
             sunrise: locationData.forecast.forecastday[0].astro.sunrise,
             sunset: locationData.forecast.forecastday[0].astro.sunset
           });
-        case 11:
-          _context.prev = 11;
+        case 10:
+          _context.prev = 10;
           _context.t0 = _context["catch"](0);
           console.error(_context.t0);
-        case 14:
+        case 13:
         case "end":
           return _context.stop();
       }
-    }, _callee, null, [[0, 11]]);
+    }, _callee, null, [[0, 10]]);
   }));
   return _getLocationData.apply(this, arguments);
 }
@@ -318,8 +317,6 @@ function createForecastCard(forecast) {
   var units = (0,_toggleUnits__WEBPACK_IMPORTED_MODULE_1__.getUnitsValue)();
   var forecastCard = document.createElement('div');
   forecastCard.classList.add('forecast-card');
-  console.log(forecast.day);
-  console.log(forecast.condition);
   if (forecast.day === 1) {
     forecastCard.style.backgroundColor = 'var(--day-color)';
   } else if (forecast.day === 0) {
@@ -468,55 +465,49 @@ function _toggleUnitTheme() {
           day = locationData.day;
           imperialButton = document.querySelector('#imperial');
           metricButton = document.querySelector('#metric');
-          console.log('running');
           _context.t0 = unit;
-          _context.next = _context.t0 === 'imperial' ? 10 : _context.t0 === 'metric' ? 26 : 42;
+          _context.next = _context.t0 === 'imperial' ? 9 : _context.t0 === 'metric' ? 23 : 37;
           break;
-        case 10:
+        case 9:
           _context.t1 = day;
-          _context.next = _context.t1 === 1 ? 13 : _context.t1 === 0 ? 19 : 25;
+          _context.next = _context.t1 === 1 ? 12 : _context.t1 === 0 ? 17 : 22;
           break;
-        case 13:
-          console.log('case 1/1');
+        case 12:
           imperialButton.classList.remove('inactive-unit-day', 'inactive-unit-night');
           imperialButton.classList.add('active-unit');
           metricButton.classList.remove('active-unit', 'inactive-unit-night');
           metricButton.classList.add('inactive-unit-day');
-          return _context.abrupt("break", 25);
-        case 19:
-          console.log('case 1/2');
+          return _context.abrupt("break", 22);
+        case 17:
           imperialButton.classList.remove('inactive-unit-day', 'inactive-unit-night');
           imperialButton.classList.add('active-unit');
           metricButton.classList.remove('active-unit', 'inactive-unit-day');
           metricButton.classList.add('inactive-unit-night');
-          return _context.abrupt("break", 25);
-        case 25:
-          return _context.abrupt("break", 45);
-        case 26:
+          return _context.abrupt("break", 22);
+        case 22:
+          return _context.abrupt("break", 39);
+        case 23:
           _context.t2 = day;
-          _context.next = _context.t2 === 1 ? 29 : _context.t2 === 0 ? 35 : 41;
+          _context.next = _context.t2 === 1 ? 26 : _context.t2 === 0 ? 31 : 36;
           break;
-        case 29:
-          console.log('case 2/1');
+        case 26:
           metricButton.classList.remove('inactive-unit-day', 'inactive-unit-night');
           metricButton.classList.add('active-unit');
           imperialButton.classList.remove('active-unit', 'inactive-unit-night');
           imperialButton.classList.add('inactive-unit-day');
-          return _context.abrupt("break", 41);
-        case 35:
-          console.log('case 2/2');
+          return _context.abrupt("break", 36);
+        case 31:
           metricButton.classList.remove('inactive-unit-day', 'inactive-unit-night');
           metricButton.classList.add('active-unit');
           imperialButton.classList.remove('active-unit', 'inactive-unit-day');
           imperialButton.classList.add('inactive-unit-night');
-          return _context.abrupt("break", 41);
-        case 41:
-          return _context.abrupt("break", 45);
-        case 42:
-          console.log('default');
+          return _context.abrupt("break", 36);
+        case 36:
+          return _context.abrupt("break", 39);
+        case 37:
           imperialButton.classList.remove('active-unit', 'inactive-unit-day', 'inactive-unit-night');
           metricButton.classList.remove('active-unit', 'inactive-unit-day', 'inactive-unit-night');
-        case 45:
+        case 39:
         case "end":
           return _context.stop();
       }
