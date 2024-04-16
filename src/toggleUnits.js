@@ -16,18 +16,18 @@ export function getUnitsValue() {
 }
 
 export function toggleTheme(day) {
-  const weatherAppContainer = document.querySelector('#weather-app-container');
+  const body = document.querySelector('body');
   const dividingLine = document.querySelector('#dividing-line');
   const searchButton = document.querySelector('#search-button');
 
   if (day === 1) {
-    weatherAppContainer.classList.remove('night-theme');
-    weatherAppContainer.classList.add('day-theme');
+    body.classList.remove('night-theme');
+    body.classList.add('day-theme');
     dividingLine.style.backgroundColor = 'black';
     searchButton.style.color = 'black';
   } else {
-    weatherAppContainer.classList.remove('day-theme');
-    weatherAppContainer.classList.add('night-theme');
+    body.classList.remove('day-theme');
+    body.classList.add('night-theme');
     dividingLine.style.backgroundColor = 'white';
     searchButton.style.color = 'white';
   }
