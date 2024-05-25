@@ -10,7 +10,7 @@ import toggleUnits, { getUnitsValue, toggleUnitTheme } from './toggleUnits';
 
 toggleUnitTheme(getUnitsValue(), 'london');
 renderCurrentWeather('london');
-renderForecast('london', 7);
+renderForecast('london', 3);
 // fetchConditionData();
 
 const searchButton = document.querySelector('#search-button');
@@ -27,5 +27,5 @@ unitToggle.addEventListener('click', () => {
   const location = getInputValue();
   toggleUnitTheme(getUnitsValue(), location);
   renderCurrentWeather(location);
-  renderForecast(location, 7);
+  renderForecast(location, 3);
 });

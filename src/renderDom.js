@@ -12,7 +12,7 @@ const locationName = document.querySelector('#location-name');
 const updatedTime = document.querySelector('#updated-time');
 const currentTemp = document.querySelector('#current-temp');
 
-function renderInfoCard(id, header, iconClass) {
+function renderInfoCard(id, header, iconClass, locationData) {
   const infoCard = document.createElement('div');
   infoCard.classList.add('info-card');
   const infoIconContainer = document.createElement('div');
@@ -23,6 +23,11 @@ function renderInfoCard(id, header, iconClass) {
   infoHeader.classList.add('info-header');
   infoHeader.textContent = header;
   const infoValue = document.createElement('h2');
+  if (locationData.day === 1) {
+    infoCard.style.backgroundColor = 'var(--day-color)';
+  } else if (locationData.day === 0) {
+    infoCard.style.backgroundColor = 'var(--night-color)';
+  }
   infoValue.id = id;
   infoValue.classList.add('info-value');
   infoCard.appendChild(infoIconContainer);
@@ -74,7 +79,7 @@ function setCurrentTemp(locationData) {
 }
 
 function setHighTemp(locationData) {
-  renderInfoCard('high-temp', 'High:', 'wi-day-sunny');
+  renderInfoCard('high-temp', 'High:', 'wi-day-sunny', locationData);
   const highTemp = document.querySelector('#high-temp');
   const units = getUnitsValue();
   if (units === 'imperial') {
@@ -85,7 +90,7 @@ function setHighTemp(locationData) {
 }
 
 function setWindSpeed(locationData) {
-  renderInfoCard('wind-speed', 'Wind Speed:', 'wi-strong-wind');
+  renderInfoCard('wind-speed', 'Wind Speed:', 'wi-strong-wind', locationData);
   const windSpeed = document.querySelector('#wind-speed');
   const units = getUnitsValue();
   if (units === 'imperial') {
@@ -96,13 +101,13 @@ function setWindSpeed(locationData) {
 }
 
 function setSunrise(locationData) {
-  renderInfoCard('sunrise', 'Sunrise:', 'wi-sunrise');
+  renderInfoCard('sunrise', 'Sunrise:', 'wi-sunrise', locationData);
   const sunrise = document.querySelector('#sunrise');
   sunrise.textContent = locationData.sunrise;
 }
 
 function setLowTemp(locationData) {
-  renderInfoCard('low-temp', 'Low:', 'wi-night-clear');
+  renderInfoCard('low-temp', 'Low:', 'wi-night-clear', locationData);
   const lowTemp = document.querySelector('#low-temp');
   const units = getUnitsValue();
   if (units === 'imperial') {
@@ -113,7 +118,7 @@ function setLowTemp(locationData) {
 }
 
 function setPrecip(locationData) {
-  renderInfoCard('precip', 'Precipitaion:', 'wi-raindrops');
+  renderInfoCard('precip', 'Precipitaion:', 'wi-raindrops', locationData);
   const precip = document.querySelector('#precip');
   const units = getUnitsValue();
   if (units === 'imperial') {
@@ -124,7 +129,7 @@ function setPrecip(locationData) {
 }
 
 function setSunset(locationData) {
-  renderInfoCard('sunset', 'Sunset:', 'wi-sunset');
+  renderInfoCard('sunset', 'Sunset:', 'wi-sunset', locationData);
   const sunset = document.querySelector('#sunset');
   sunset.textContent = locationData.sunset;
 }

@@ -14,7 +14,7 @@ export default function processInput() {
   removeInfoCards();
   renderCurrentWeather(inputValue);
   removeForecastCards();
-  renderForecast(inputValue, 7);
+  renderForecast(inputValue, 3);
   toggleUnitTheme(getUnitsValue(), inputValue);
 }
 

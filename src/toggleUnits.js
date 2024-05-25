@@ -17,18 +17,15 @@ export function getUnitsValue() {
 
 export function toggleTheme(day) {
   const body = document.querySelector('body');
-  const dividingLine = document.querySelector('#dividing-line');
   const searchButton = document.querySelector('#search-button');
 
   if (day === 1) {
     body.classList.remove('night-theme');
     body.classList.add('day-theme');
-    dividingLine.style.backgroundColor = 'black';
     searchButton.style.color = 'black';
   } else {
     body.classList.remove('day-theme');
     body.classList.add('night-theme');
-    dividingLine.style.backgroundColor = 'white';
     searchButton.style.color = 'white';
   }
 }
