@@ -1,5 +1,11 @@
 html {
-  font-size: 24px;
+  --fs-1: clamp(4rem, 8vw, 8rem);
+  --fs-2: clamp(1.5rem, 3vw, 2rem);
+  --fs-3: clamp(1rem, 3vw, 1.5rem);
+  --fs-4: clamp(0.75rem, 2vw, 1.25rem);
+  --icon-1: clamp(8rem, 16vw, 16rem);
+  --icon-2: clamp(3.5rem, 6vw, 5rem);
+  --border: clamp(1rem, 3vw, 3rem);
 }
 
 html,
@@ -13,7 +19,7 @@ body {
 #body-container {
   height: 100vh;
   box-sizing: border-box;
-  padding: 60px 80px;
+  padding: var(--border);
 }
 
 #weather-app-container {
@@ -57,12 +63,12 @@ body {
 #user-input {
   border-radius: 7px 0 0 7px;
   padding: 7px;
-  font-size: 1rem;
+  font-size: var(--fs-4);
   border: none;
 }
 
 #search-button {
-  font-size: 1rem;
+  font-size: var(--fs-4);
   padding: 7px;
   background-color: transparent;
   border: none;
@@ -77,19 +83,12 @@ body {
 }
 
 @media (max-width: 1325px) {
-  html {
-    font-size: 12px;
-  }
-
   #condition-container {
     width: 100%;
   }
   #current-data-container {
     flex-direction: column;
     align-items: center;
-  }
-  #body-container {
-    padding: 40px;
   }
 }
 
@@ -101,13 +100,13 @@ body {
 }
 
 #location-name {
-  font-size: 8rem;
+  font-size: var(--fs-1);
   align-self: center;
   text-align: center;
 }
 
 #updated-time {
-  font-size: 1rem;
+  font-size: var(--fs-3);
   align-self: center;
 }
 
@@ -118,7 +117,7 @@ body {
   background-color: transparent;
   display: flex;
   padding: 0;
-  font-size: 1rem;
+  font-size: var(--fs-4);
   border-radius: 7px;
   outline: none;
   border: none;
@@ -170,18 +169,17 @@ body {
 }
 
 .condition-image {
-  font-size: 16rem;
+  font-size: var(--icon-1);
   color: inherit;
 }
 
 #current-temp {
-  /* white-space: nowrap; */
-  font-size: 8rem;
+  font-size: var(--fs-1);
   align-self: self-end;
 }
 
 .condition-desc {
-  font-size: 30px;
+  font-size: var(--fs-2);
   grid-column: 2 / 3;
   align-self: self-start;
 }
@@ -223,7 +221,6 @@ body {
 }
 
 .info-icon-container {
-  font-size: 5rem;
   grid-column: 1 / 2;
   grid-row: 1 / 3;
   display: grid;
@@ -231,7 +228,7 @@ body {
 }
 
 .info-icon {
-  font-size: 1em;
+  font-size: var(--icon-2);
   color: inherit;
 }
 
@@ -239,7 +236,7 @@ body {
   align-self: center;
   grid-column: 3 / 4;
   grid-row: 1 / 2;
-  font-size: 1.5rem;
+  font-size: var(--fs-3);
   margin-bottom: 12px;
 }
 
@@ -248,7 +245,7 @@ body {
   white-space: nowrap;
   grid-column: 3 / 4;
   grid-row: 2 / 3;
-  font-size: 2rem;
+  font-size: var(--fs-2);
   margin-top: 12px;
 }
 
@@ -272,16 +269,16 @@ body {
 }
 
 .forecast-icon {
-  font-size: 4rem;
+  font-size: var(--icon-2);
   color: inherit;
 }
 
 .forecast-data {
-  font-size: 2rem;
+  font-size: var(--fs-2);
 }
 
 .forecast-condition,
 .forecast-day {
-  font-size: 1.5rem;
+  font-size: var(--fs-3);
   text-align: center;
 }
