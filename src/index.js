@@ -6,12 +6,27 @@ import './styles/weather-icons.css';
 import renderCurrentWeather, { renderForecast } from './renderDom';
 import processInput, { getInputValue } from './userInput';
 import toggleUnits, { getUnitsValue, toggleUnitTheme } from './toggleUnits';
-// import { fetchConditionData } from './fetchData';
 
-toggleUnitTheme(getUnitsValue(), 'london');
-renderCurrentWeather('london');
-renderForecast('london', 3);
-// fetchConditionData();
+init();
+
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+async function init() {
+  try {
+    const position = await getCurrentPosition();
+    const { latitude, longitude } = position.coords;
+    const currentLocation = `${latitude}` + ', ' + `${longitude}`;
+    await toggleUnitTheme(getUnitsValue(), currentLocation);
+    await renderCurrentWeather(currentLocation);
+    await renderForecast(currentLocation, 3);
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 const searchButton = document.querySelector('#search-button');
 searchButton.addEventListener('click', processInput);
