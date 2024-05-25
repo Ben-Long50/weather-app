@@ -2,6 +2,7 @@ html,
 body {
   --day-gradient: linear-gradient(to bottom, #49d5ff, #dcf5ff);
   --night-gradient: linear-gradient(to bottom, #120052, #4700b9);
+  --box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
   background-attachment: fixed;
 }
 
@@ -42,7 +43,7 @@ body {
 }
 
 #search-container {
-  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--box-shadow);
   border-radius: 0 7px 7px 0;
   display: flex;
   align-self: flex-start;
@@ -100,7 +101,7 @@ body {
 #unit-toggle {
   align-self: flex-start;
   justify-self: self-end;
-  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--box-shadow);
   background-color: transparent;
   display: flex;
   padding: 0;
@@ -242,7 +243,7 @@ body {
   background-color: var(--day-color);
   padding: 30px;
   border-radius: 12px;
-  box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
+  box-shadow: var(--box-shadow);
 }
 
 .forecast-icon {
