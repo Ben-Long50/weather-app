@@ -6,36 +6,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&family=Open+Sans&display=swap" rel="stylesheet">
-    <title>Weather App></title>
+    <title>Weather App</title>
   <script defer="defer" src="bundle.js"></script></head>
   <body>
-    <div id="weather-app-container">
+    <div id="body-container">
       <div id="nav-container">
         <div id="search-container">
           <input id="user-input" type="text">
           <button id="search-button">Search</button>
-        </div>
-        <div id="name-info-container">
-          <h1 id="location-name"></h1>
-          <h2 id="updated-time"></h2>
         </div>
         <button id="unit-toggle">
           <h3 id="imperial">&deg;F</h3>
           <h3 id="metric">&deg;C</h3>
         </button>
       </div>
-      <div id="current-data-container">
-        <div id="condition-container">
-          <div id="icon-container">
-            <i class="condition-image"></i>
-          </div>
-          <h2 id="current-temp"></h2>
-          <h2 class="condition-desc"></h2>
+      <div id="weather-app-container">
+        <div id="name-info-container">
+          <h1 id="location-name"></h1>
+          <h2 id="updated-time"></h2>
         </div>
-        <div id="dividing-line"></div>
-        <div id="info-container"></div>
+        <div id="current-data-container">
+          <div id="condition-container">
+            <div id="icon-container">
+              <i class="condition-image"></i>
+            </div>
+            <h2 id="current-temp"></h2>
+            <h2 class="condition-desc"></h2>
+          </div>
+          <div id="info-container"></div>
+        </div>
+        <div id="forecast-container"></div>
       </div>
-      <div id="forecast-container"></div>
     </div>
   </body>
 </html>
