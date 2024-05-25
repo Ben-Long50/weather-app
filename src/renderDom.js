@@ -72,9 +72,9 @@ function setUpdatedTime(locationData) {
 function setCurrentTemp(locationData) {
   const units = getUnitsValue();
   if (units === 'imperial') {
-    currentTemp.textContent = `${locationData.tempF} \u00B0F`;
+    currentTemp.textContent = `${locationData.tempF}`;
   } else if (units === 'metric') {
-    currentTemp.textContent = `${locationData.tempC} \u00B0C`;
+    currentTemp.textContent = `${locationData.tempC}`;
   }
 }
 
@@ -83,9 +83,9 @@ function setHighTemp(locationData) {
   const highTemp = document.querySelector('#high-temp');
   const units = getUnitsValue();
   if (units === 'imperial') {
-    highTemp.textContent = `${locationData.maxTempF} \u00B0F`;
+    highTemp.textContent = `${locationData.maxTempF}`;
   } else if (units === 'metric') {
-    highTemp.textContent = `${locationData.maxTempC} \u00B0C`;
+    highTemp.textContent = `${locationData.maxTempC}`;
   }
 }
 
@@ -111,9 +111,9 @@ function setLowTemp(locationData) {
   const lowTemp = document.querySelector('#low-temp');
   const units = getUnitsValue();
   if (units === 'imperial') {
-    lowTemp.textContent = `${locationData.minTempF} \u00B0F`;
+    lowTemp.textContent = `${locationData.minTempF}`;
   } else if (units === 'metric') {
-    lowTemp.textContent = `${locationData.minTempC} \u00B0C`;
+    lowTemp.textContent = `${locationData.minTempC}`;
   }
 }
 
@@ -177,16 +177,16 @@ function createForecastCard(forecast) {
   const highTempData = document.createElement('h2');
   highTempData.classList.add('forecast-data');
   if (units === 'imperial') {
-    highTempData.textContent = `${forecast.maxTempF} \u00B0F`;
+    highTempData.textContent = `${forecast.maxTempF}`;
   } else if (units === 'metric') {
-    highTempData.textContent = `${forecast.maxTempC} \u00B0C`;
+    highTempData.textContent = `${forecast.maxTempC}`;
   }
   const lowTempData = document.createElement('h2');
   lowTempData.classList.add('forecast-data');
   if (units === 'imperial') {
-    lowTempData.textContent = `${forecast.minTempF} \u00B0F`;
+    lowTempData.textContent = `${forecast.minTempF}`;
   } else if (units === 'metric') {
-    lowTempData.textContent = `${forecast.minTempC} \u00B0C`;
+    lowTempData.textContent = `${forecast.minTempC}`;
   }
   const icon = document.createElement('i');
   icon.classList.add(

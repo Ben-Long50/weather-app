@@ -1,3 +1,7 @@
+html {
+  font-size: 24px;
+}
+
 html,
 body {
   --day-gradient: linear-gradient(to bottom, #49d5ff, #dcf5ff);
@@ -53,12 +57,12 @@ body {
 #user-input {
   border-radius: 7px 0 0 7px;
   padding: 7px;
-  font-size: 24px;
+  font-size: 1rem;
   border: none;
 }
 
 #search-button {
-  font-size: 24px;
+  font-size: 1rem;
   padding: 7px;
   background-color: transparent;
   border: none;
@@ -67,14 +71,22 @@ body {
 #current-data-container {
   box-sizing: border-box;
   display: flex;
-  gap: 72px;
   justify-content: space-between;
+  gap: 4rem;
   background-color: transparent;
 }
 
 @media (max-width: 1325px) {
+  html {
+    font-size: 12px;
+  }
+
+  #condition-container {
+    width: 100%;
+  }
   #current-data-container {
     flex-direction: column;
+    align-items: center;
   }
   #body-container {
     padding: 40px;
@@ -89,12 +101,13 @@ body {
 }
 
 #location-name {
-  font-size: 10vh;
+  font-size: 8rem;
   align-self: center;
   text-align: center;
 }
 
 #updated-time {
+  font-size: 1rem;
   align-self: center;
 }
 
@@ -105,7 +118,7 @@ body {
   background-color: transparent;
   display: flex;
   padding: 0;
-  font-size: 24px;
+  font-size: 1rem;
   border-radius: 7px;
   outline: none;
   border: none;
@@ -142,8 +155,9 @@ body {
 }
 
 #condition-container {
+  width: 50%;
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, auto);
   grid-template-rows: 2;
   gap: 50px;
 }
@@ -156,13 +170,13 @@ body {
 }
 
 .condition-image {
-  font-size: 250px;
+  font-size: 16rem;
   color: inherit;
 }
 
 #current-temp {
-  white-space: nowrap;
-  font-size: 100px;
+  /* white-space: nowrap; */
+  font-size: 8rem;
   align-self: self-end;
 }
 
@@ -173,11 +187,20 @@ body {
 }
 
 #info-container {
-  flex-grow: 1;
+  width: 50%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 36px;
+  gap: 2rem;
   place-items: center;
+}
+
+@media (max-width: 1325px) {
+  #condition-container {
+    width: 100%;
+  }
+  #info-container {
+    width: 100%;
+  }
 }
 
 @media (max-width: 1850px) {
@@ -192,12 +215,11 @@ body {
   display: grid;
   grid-template-columns: 8rem 1fr auto;
   grid-template-rows: repeat(2, 1fr);
-  gap: 15px;
   border-radius: 12px;
   background-color: rgba(255, 255, 255, 0.2);
   box-shadow: 7px 7px 15px rgba(0, 0, 0, 0.6);
   box-sizing: border-box;
-  padding: 32px 32px 32px 0;
+  padding: 20px 32px 20px 0;
 }
 
 .info-icon-container {
@@ -214,24 +236,27 @@ body {
 }
 
 .info-header {
-  align-self: self-end;
+  align-self: center;
   grid-column: 3 / 4;
   grid-row: 1 / 2;
-  font-size: 20px;
+  font-size: 1.5rem;
+  margin-bottom: 12px;
 }
 
 .info-value {
+  align-self: center;
   white-space: nowrap;
   grid-column: 3 / 4;
   grid-row: 2 / 3;
-  font-size: 30px;
+  font-size: 2rem;
+  margin-top: 12px;
 }
 
 #forecast-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   width: 100%;
-  gap: 4%;
+  gap: 4rem;
 }
 
 .forecast-card {
@@ -239,7 +264,7 @@ body {
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
-  gap: 15px;
+  gap: 2rem;
   background-color: var(--day-color);
   padding: 30px;
   border-radius: 12px;
@@ -247,16 +272,16 @@ body {
 }
 
 .forecast-icon {
-  font-size: 70px;
+  font-size: 4rem;
   color: inherit;
 }
 
 .forecast-data {
-  font-size: 36px;
+  font-size: 2rem;
 }
 
 .forecast-condition,
 .forecast-day {
-  font-size: 20px;
+  font-size: 1.5rem;
   text-align: center;
 }
