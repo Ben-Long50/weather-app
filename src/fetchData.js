@@ -14,7 +14,7 @@ export default async function getLocationData(location) {
       { mode: 'cors' },
     );
     if (!response.ok) {
-      throw new Error(`Network response was not ok: ${response.statusText}`);
+      throw new Error(`Network response failed, try another search`);
     }
     const locationData = await response.json();
     return {
@@ -37,8 +37,7 @@ export default async function getLocationData(location) {
       sunset: locationData.forecast.forecastday[0].astro.sunset,
     };
   } catch (error) {
-    console.error('Error fetching location data:', error);
-    throw error;
+    alert(error);
   }
 }
 
@@ -48,6 +47,9 @@ export async function getForecastData(location, days, index) {
       `https://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&days=${days}&aqi=no`,
       { mode: 'cors' },
     );
+    if (!response.ok) {
+      throw new Error(`Network response failed, try another search`);
+    }
     const locationData = await response.json();
     return {
       day: locationData.current.is_day,
@@ -60,7 +62,7 @@ export async function getForecastData(location, days, index) {
       minTempC: locationData.forecast.forecastday[index].day.mintemp_c,
     };
   } catch (error) {
-    console.error(error);
+    alert(error);
   }
 }
 
