@@ -6,32 +6,15 @@ import './styles/weather-icons.css';
 import renderCurrentWeather, { renderForecast } from './renderDom';
 import processInput, { getInputValue } from './userInput';
 import toggleUnits, { getUnitsValue, toggleUnitTheme } from './toggleUnits';
+import { loadUserPosition } from './fetchData';
 
-init();
-
-function getCurrentPosition() {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject);
-  });
-}
-
-async function init() {
-  try {
-    const position = await getCurrentPosition();
-    const { latitude, longitude } = position.coords;
-    const currentLocation = `${latitude}` + ', ' + `${longitude}`;
-    await toggleUnitTheme(getUnitsValue(), currentLocation);
-    await renderCurrentWeather(currentLocation);
-    await renderForecast(currentLocation, 3);
-  } catch (error) {
-    console.log(error);
-  }
-}
+loadUserPosition();
 
 const searchButton = document.querySelector('#search-button');
+const userInput = document.querySelector('#user-input');
 searchButton.addEventListener('click', processInput);
-searchButton.addEventListener('keydown', (event) => {
-  if (event.key === 'Enter' || event.keyCode === 13) {
+userInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' || e.keyCode === 13) {
     processInput();
   }
 });

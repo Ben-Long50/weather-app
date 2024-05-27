@@ -233,6 +233,7 @@ body {
 }
 
 .info-header {
+  justify-self: end;
   align-self: center;
   grid-column: 3 / 4;
   grid-row: 1 / 2;
@@ -241,6 +242,7 @@ body {
 }
 
 .info-value {
+  justify-self: end;
   align-self: center;
   white-space: nowrap;
   grid-column: 3 / 4;

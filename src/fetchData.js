@@ -1,5 +1,8 @@
 import { closest } from 'fastest-levenshtein';
 import conditionList from './weatherApiConditionList.json';
+import renderCurrentWeather, { renderForecast } from './renderDom';
+import { getUnitsValue, toggleUnitTheme } from './toggleUnits';
+import { inputValue, setInputValue } from './userInput';
 
 const dayConditions = conditionList.map((object) => object.day);
 const nightConditions = conditionList.map((object) => object.night);
@@ -10,6 +13,9 @@ export default async function getLocationData(location) {
       `https://api.weatherapi.com/v1/forecast.json?key=f895889501ed4aaf898183007240904&q=${location}&aqi=no`,
       { mode: 'cors' },
     );
+    if (!response.ok) {
+      throw new Error(`Network response was not ok: ${response.statusText}`);
+    }
     const locationData = await response.json();
     return {
       name: locationData.location.name,
@@ -31,7 +37,8 @@ export default async function getLocationData(location) {
       sunset: locationData.forecast.forecastday[0].astro.sunset,
     };
   } catch (error) {
-    console.error(error);
+    console.error('Error fetching location data:', error);
+    throw error;
   }
 }
 
@@ -71,5 +78,25 @@ export function getConditionIcon(condition, isDay) {
       (item) => item.night === closestCondition,
     );
     return currentCondition['night-icon-class'];
+  }
+}
+
+function getCurrentPosition() {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+}
+
+export async function loadUserPosition() {
+  try {
+    const position = await getCurrentPosition();
+    const { latitude, longitude } = position.coords;
+    const currentLocation = `${latitude}` + ', ' + `${longitude}`;
+    setInputValue(currentLocation);
+    toggleUnitTheme(getUnitsValue(), currentLocation);
+    renderCurrentWeather(currentLocation);
+    renderForecast(currentLocation, 3);
+  } catch (error) {
+    console.log(error);
   }
 }
